@@ -94,9 +94,22 @@ public class ManajemenAkun extends javax.swing.JDialog {
         cmbHakAkses.setEnabled(false);
     }
     
+        private String simpanHakAkses(){
+        String id=null;
+        try{
+            String hak_akses="select * from hak_akses where nama_hak_akses='"+cmbHakAkses.getSelectedItem()+"'";
+            kon.rs = kon.st.executeQuery(hak_akses);
+            while(kon.rs.next()){
+            id = kon.rs.getString("id_hak_akses");
+            }
+        }catch(SQLException error){
+            JOptionPane.showMessageDialog(null, error);
+        }return id;
+    }
+    
     private void SimpanData(){
         try{
-            String sql="insert into pengguna values('"+txtIdPengguna.getText()+"','"+txtNamaPengguna.getText()+"','"+txtEmail.getText()+"','"+txtEmail.getText()+"','"+txtPassword.getText()+"','"+cmbHakAkses.getSelectedItem().equals(kon)+"','1')";
+            String sql="insert into pengguna values('"+txtIdPengguna.getText()+"','"+txtNamaPengguna.getText()+"','"+txtEmail.getText()+"','"+txtEmail.getText()+"','"+txtPassword.getText()+"','"+simpanHakAkses()+"','1')";
             kon.st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null,"Data berhasil disimpan");
             Bersih();
@@ -109,7 +122,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
     
     private void UpdateData(){
         try{
-            String sql="Update pengguna set id_pengguna='"+tid_pengguna.getText()+"',nama='"+tnama.getText()+"',email='"+temail.getText()+"',username='"+tusername.getText()+"',password='"+tpassword.getText()+"' where id_pengguna='"+tid_pengguna.getText()+"'";
+            String sql="Update pengguna set id_pengguna='"+txtIdPengguna.getText()+"',nama='"+tnama.getText()+"',email='"+temail.getText()+"',username='"+tusername.getText()+"',password='"+tpassword.getText()+"' where id_pengguna='"+tid_pengguna.getText()+"'";
             kon.st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null,"Data berhasil diupdate");
             Bersih();
