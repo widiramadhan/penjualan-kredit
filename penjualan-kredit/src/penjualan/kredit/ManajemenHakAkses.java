@@ -40,6 +40,14 @@ private void Bersih(){
         txtCari.setText("");
 }
 
+private void NonAktif(){
+    txtHakAkses.setEnabled(false);
+}
+
+private void Aktif(){
+    txtHakAkses.setEnabled(true);
+}
+
  private void SimpanData(){
         try{
             String sql="insert into hak_akses values('"+txtid.getText()+"','"+txtHakAkses.getText()+"',)";
@@ -159,6 +167,12 @@ private void HapusData(){
         txtid = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -174,9 +188,19 @@ private void HapusData(){
 
         btnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/simpan.png"))); // NOI18N
         btnSimpan.setText("Simpan");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanActionPerformed(evt);
+            }
+        });
 
         btnTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/tambah.png"))); // NOI18N
         btnTambah.setText("Tambah");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
 
         btnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/remove.png"))); // NOI18N
         btnHapus.setText("Hapus");
@@ -188,6 +212,11 @@ private void HapusData(){
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/edit.png"))); // NOI18N
         btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/logout.png"))); // NOI18N
         btnKeluar.setText("Keluar");
@@ -208,6 +237,11 @@ private void HapusData(){
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblHakAkses.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHakAksesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblHakAkses);
 
         jLabel3.setText("Cari Berdasarkan Nama Hak Akses :");
@@ -306,13 +340,92 @@ private void HapusData(){
     }//GEN-LAST:event_txtHakAksesActionPerformed
 
     private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
-        // TODO add your handling code here:
+                String keluar=btnKeluar.getText();
+        if(keluar.equals("Batal")){
+            Bersih();
+            NonAktif();
+            btnSimpan.setText("Simpan");
+            btnKeluar.setText("Keluar");
+            btambah.setEnabled(true);
+            bsimpan.setEnabled(false);
+            bedit.setEnabled(false);
+            bhapus.setEnabled(false);
+            txtCari.setEnabled(true);
+            bCari.setEnabled(true);
+            bAll.setEnabled(true);
+        }else{
+            this.dispose();
+        }
         
     }//GEN-LAST:event_btnKeluarActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(this, "yakin mau dihapus?", "konfirmasi", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            HapusData();
+            Bersih();
+            NonAktif();
+            btnSimpan.setText("Simpan");
+            btnKeluar.setText("Keluar");
+            btnTambah.setEnabled(true);
+            btnSimpan.setEnabled(false);
+            btnEdit.setEnabled(false);
+            btnHapus.setEnabled(false);
+            txtCari.setEnabled(true);
+            btnCari.setEnabled(true);
+            btnAll.setEnabled(true);
+        } else {
+
+            JOptionPane.showMessageDialog(this, "Data Batal Dihapus", "Konfirmasi", JOptionPane.INFORMATION_MESSAGE);
+            //btambah.setEnabled(true);
+            return;
+        }
     }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        BacaTabelHakAkses();
+        Bersih();
+        NonAktif();
+        btnSimpan.setEnabled(false);
+        btnEdit.setEnabled(false);
+        btnHapus.setEnabled(false);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void tblHakAksesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHakAksesMouseClicked
+        setTable();
+        btnKeluar.setText("Batal");
+        btnHapus.setEnabled(true);
+        btnEdit.setEnabled(true);
+        btnTambah.setEnabled(false);
+    }//GEN-LAST:event_tblHakAksesMouseClicked
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        Aktif();
+        txtHakAkses.requestFocus();
+        btnKeluar.setText("Batal");
+        btnSimpan.setEnabled(true);
+        btnTambah.setEnabled(false);
+        btnEdit.setEnabled(false);
+        btnHapus.setEnabled(false);
+        txtCari.setEnabled(false);
+        btnCari.setEnabled(false);
+        btnAll.setEnabled(false);
+    }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        Aktif();
+        btnSimpan.setText("Update");
+        btnKeluar.setText("Batal");
+        btnSimpan.setEnabled(true);
+        btnEdit.setEnabled(false);
+        btnHapus.setEnabled(false);
+        txtCari.setEnabled(false);
+        btnCari.setEnabled(false);
+        btnAll.setEnabled(false);
+    }//GEN-LAST:event_btnEditActionPerformed
 
     /**
      * @param args the command line arguments

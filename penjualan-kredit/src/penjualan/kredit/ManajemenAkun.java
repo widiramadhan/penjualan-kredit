@@ -287,8 +287,6 @@ public class ManajemenAkun extends javax.swing.JDialog {
 
         jLabel7.setText("Hak Akses");
 
-        cmbHakAkses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- PILIH HAK AKSES -" }));
-
         jLabel8.setText("Cari Berdasarkan Nama Pengguna :");
 
         bCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/cari.png"))); // NOI18N
@@ -304,12 +302,6 @@ public class ManajemenAkun extends javax.swing.JDialog {
         bAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAllActionPerformed(evt);
-            }
-        });
-
-        txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCariKeyPressed(evt);
             }
         });
 
@@ -635,12 +627,6 @@ public class ManajemenAkun extends javax.swing.JDialog {
         bedit.setEnabled(false);
         bhapus.setEnabled(false);
     }//GEN-LAST:event_formWindowOpened
-
-    private void txtCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            Pencarian();
-        }
-    }//GEN-LAST:event_txtCariKeyPressed
 
     /**
      * @param args the command line arguments
