@@ -4,17 +4,63 @@
  */
 package penjualan.kredit;
 
+import java.awt.ComponentOrientation;
+import java.sql.SQLException;
+import javax.swing.Box;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import penjualan.kredit.config.Koneksi;
+import penjualan.kredit.config.SessionUtil;
+
 /**
  *
  * @author Hp
  */
 public class MenuUtama extends javax.swing.JFrame {
-
+    SessionUtil sessionUtil = new SessionUtil();
+    Koneksi kon=new Koneksi();
     /**
      * Creates new form MenuUtama1
      */
     public MenuUtama() {
         initComponents();
+        kon.setKoneksi();
+        cekLogin();
+        
+
+    }
+    
+    public void cekLogin(){
+        try{
+            String sql="select * from pengguna where status='0'";
+            kon.rs=kon.st.executeQuery(sql);
+            
+            if (kon.rs.next()){
+                String nama = kon.rs.getString("nama");
+                
+                //set menu di kiri
+                jMenuBar2.add(Box.createHorizontalGlue()); 
+                jMenuBar2.add(jMenu1);
+                
+                //custom menu
+                jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/user.png"))); // NOI18N
+                jMenu1.setText(nama);
+                jMenu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                jMenu1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+                jMenu1.setMargin(new java.awt.Insets(10, 5, 5, 5));
+                jMenu1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+                
+                //menambahkan menu item
+                JMenuItem menuitem1 = new JMenuItem("Ganti Password");
+                JMenuItem menuitem2 = new JMenuItem("Logout");
+                jMenu1.add(menuitem1);
+                jMenu1.add(menuitem2);
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -30,27 +76,30 @@ public class MenuUtama extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
+        mnFile = new javax.swing.JMenu();
         mnProduk = new javax.swing.JMenu();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
+        mnDataProduk = new javax.swing.JMenuItem();
+        mnDataKategori = new javax.swing.JMenuItem();
+        mnDataMerk = new javax.swing.JMenuItem();
         mnTransaksi = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mnTransaksiKredit = new javax.swing.JMenuItem();
+        mnPembayaranKredit = new javax.swing.JMenuItem();
         mnAkun = new javax.swing.JMenu();
         mnManajemenAkun = new javax.swing.JMenuItem();
         mnManajemenHakAkses = new javax.swing.JMenuItem();
         mnHakPenggunaAkun = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        mnLaporan = new javax.swing.JMenu();
+        mnLaporanDataProduk = new javax.swing.JMenuItem();
+        mnLaporanDataTransaksi = new javax.swing.JMenuItem();
+        mnLaporanTransaksiKredit = new javax.swing.JMenuItem();
+        mnLaporanDataReturProduk = new javax.swing.JMenuItem();
+        mnPengaturan = new javax.swing.JMenu();
+        mnPengaturanSistem = new javax.swing.JMenuItem();
+        mnDatabase = new javax.swing.JMenu();
+        mnBackupDatabase = new javax.swing.JMenuItem();
+        mnRestoreDatabase = new javax.swing.JMenuItem();
+        mnTentangToko = new javax.swing.JMenuItem();
+        mnTentangAplikasi = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -60,13 +109,13 @@ public class MenuUtama extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/home.png"))); // NOI18N
-        jMenu3.setText("File");
-        jMenu3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jMenu3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jMenu3.setMargin(new java.awt.Insets(10, 5, 5, 5));
-        jMenu3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jMenuBar2.add(jMenu3);
+        mnFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/home.png"))); // NOI18N
+        mnFile.setText("File");
+        mnFile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mnFile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mnFile.setMargin(new java.awt.Insets(10, 5, 5, 5));
+        mnFile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jMenuBar2.add(mnFile);
 
         mnProduk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/cart.png"))); // NOI18N
         mnProduk.setText("Produk");
@@ -75,19 +124,21 @@ public class MenuUtama extends javax.swing.JFrame {
         mnProduk.setMargin(new java.awt.Insets(10, 5, 5, 5));
         mnProduk.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jMenuItem13.setText("Data Produk");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+        mnDataProduk.setText("Data Produk");
+        mnDataProduk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
+                mnDataProdukActionPerformed(evt);
             }
         });
-        mnProduk.add(jMenuItem13);
+        mnProduk.add(mnDataProduk);
 
-        jMenuItem14.setText("Data Kategori");
-        mnProduk.add(jMenuItem14);
+        mnDataKategori.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/list.png"))); // NOI18N
+        mnDataKategori.setText("Data Kategori");
+        mnProduk.add(mnDataKategori);
 
-        jMenuItem15.setText("Data Merk");
-        mnProduk.add(jMenuItem15);
+        mnDataMerk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/price-tag.png"))); // NOI18N
+        mnDataMerk.setText("Data Merk");
+        mnProduk.add(mnDataMerk);
 
         jMenuBar2.add(mnProduk);
 
@@ -98,12 +149,12 @@ public class MenuUtama extends javax.swing.JFrame {
         mnTransaksi.setMargin(new java.awt.Insets(10, 5, 5, 5));
         mnTransaksi.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/credit-card.png"))); // NOI18N
-        jMenuItem1.setText("Transaksi Kredit");
-        mnTransaksi.add(jMenuItem1);
+        mnTransaksiKredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/credit-card.png"))); // NOI18N
+        mnTransaksiKredit.setText("Transaksi Kredit");
+        mnTransaksi.add(mnTransaksiKredit);
 
-        jMenuItem2.setText("Pembayaran Kredit");
-        mnTransaksi.add(jMenuItem2);
+        mnPembayaranKredit.setText("Pembayaran Kredit");
+        mnTransaksi.add(mnPembayaranKredit);
 
         jMenuBar2.add(mnTransaksi);
 
@@ -138,55 +189,79 @@ public class MenuUtama extends javax.swing.JFrame {
 
         jMenuBar2.add(mnAkun);
 
-        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/notepad.png"))); // NOI18N
-        jMenu5.setText("Laporan");
-        jMenu5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jMenu5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jMenu5.setMargin(new java.awt.Insets(10, 5, 5, 5));
-        jMenu5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mnLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/notepad.png"))); // NOI18N
+        mnLaporan.setText("Laporan");
+        mnLaporan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mnLaporan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mnLaporan.setMargin(new java.awt.Insets(10, 5, 5, 5));
+        mnLaporan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jMenuItem6.setText("Laporan Data Produk");
-        jMenu5.add(jMenuItem6);
+        mnLaporanDataProduk.setText("Laporan Data Produk");
+        mnLaporan.add(mnLaporanDataProduk);
 
-        jMenuItem7.setText("Laporan Data Transaksi");
-        jMenu5.add(jMenuItem7);
+        mnLaporanDataTransaksi.setText("Laporan Data Transaksi");
+        mnLaporan.add(mnLaporanDataTransaksi);
 
-        jMenuItem8.setText("Laporan Transaksi Kredit");
-        jMenu5.add(jMenuItem8);
+        mnLaporanTransaksiKredit.setText("Laporan Transaksi Kredit");
+        mnLaporan.add(mnLaporanTransaksiKredit);
 
-        jMenuItem9.setText("Laporan Data Retur Produk");
-        jMenu5.add(jMenuItem9);
+        mnLaporanDataReturProduk.setText("Laporan Data Retur Produk");
+        mnLaporan.add(mnLaporanDataReturProduk);
 
-        jMenuBar2.add(jMenu5);
+        jMenuBar2.add(mnLaporan);
 
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/pengaturan.png"))); // NOI18N
-        jMenu6.setText("Pengaturan");
-        jMenu6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jMenu6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jMenu6.setMargin(new java.awt.Insets(10, 5, 5, 5));
-        jMenu6.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jMenu6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mnPengaturan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/pengaturan.png"))); // NOI18N
+        mnPengaturan.setText("Pengaturan");
+        mnPengaturan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mnPengaturan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mnPengaturan.setMargin(new java.awt.Insets(10, 5, 5, 5));
+        mnPengaturan.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        mnPengaturan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jMenuItem3.setText("Pengaturan Sistem");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        mnPengaturanSistem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/settings.png"))); // NOI18N
+        mnPengaturanSistem.setText("Pengaturan Sistem");
+        mnPengaturanSistem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                mnPengaturanSistemActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem3);
+        mnPengaturan.add(mnPengaturanSistem);
 
-        jMenuItem4.setText("Tentang Toko");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        mnDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/database.png"))); // NOI18N
+        mnDatabase.setText("Database");
+
+        mnBackupDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/backup_db.png"))); // NOI18N
+        mnBackupDatabase.setText("Cadangkan Database");
+        mnBackupDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                mnBackupDatabaseActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem4);
+        mnDatabase.add(mnBackupDatabase);
 
-        jMenuItem5.setText("Tentang Aplikasi");
-        jMenu6.add(jMenuItem5);
+        mnRestoreDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/restore_db.png"))); // NOI18N
+        mnRestoreDatabase.setText("Pulihkan Database");
+        mnRestoreDatabase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnRestoreDatabaseActionPerformed(evt);
+            }
+        });
+        mnDatabase.add(mnRestoreDatabase);
 
-        jMenuBar2.add(jMenu6);
+        mnPengaturan.add(mnDatabase);
+
+        mnTentangToko.setText("Tentang Toko");
+        mnTentangToko.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnTentangTokoActionPerformed(evt);
+            }
+        });
+        mnPengaturan.add(mnTentangToko);
+
+        mnTentangAplikasi.setText("Tentang Aplikasi");
+        mnPengaturan.add(mnTentangAplikasi);
+
+        jMenuBar2.add(mnPengaturan);
 
         setJMenuBar(jMenuBar2);
 
@@ -204,17 +279,17 @@ public class MenuUtama extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void mnPengaturanSistemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPengaturanSistemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_mnPengaturanSistemActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void mnTentangTokoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnTentangTokoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_mnTentangTokoActionPerformed
 
-    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+    private void mnDataProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataProdukActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem13ActionPerformed
+    }//GEN-LAST:event_mnDataProdukActionPerformed
 
     private void mnManajemenAkunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnManajemenAkunActionPerformed
         boolean closable = true;
@@ -224,8 +299,25 @@ public class MenuUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_mnManajemenAkunActionPerformed
 
     private void mnManajemenHakAksesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnManajemenHakAksesActionPerformed
-        // TODO add your handling code here:
+        boolean closable = true;
+        ManajemenHakAkses manajemenHakAkses = new ManajemenHakAkses(null, closable);
+        manajemenHakAkses.mu = this;
+        manajemenHakAkses.setVisible(true);
     }//GEN-LAST:event_mnManajemenHakAksesActionPerformed
+
+    private void mnBackupDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBackupDatabaseActionPerformed
+        boolean closable = true;
+        BackupDatabase backup = new BackupDatabase(null, closable);
+        backup.mu = this;
+        backup.setVisible(true);
+    }//GEN-LAST:event_mnBackupDatabaseActionPerformed
+
+    private void mnRestoreDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRestoreDatabaseActionPerformed
+        boolean closable = true;
+        RestoreDatabase restore = new RestoreDatabase(null, closable);
+        restore.mu = this;
+        restore.setVisible(true);
+    }//GEN-LAST:event_mnRestoreDatabaseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,28 +363,31 @@ public class MenuUtama extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu mnAkun;
+    private javax.swing.JMenuItem mnBackupDatabase;
+    private javax.swing.JMenuItem mnDataKategori;
+    private javax.swing.JMenuItem mnDataMerk;
+    private javax.swing.JMenuItem mnDataProduk;
+    private javax.swing.JMenu mnDatabase;
+    private javax.swing.JMenu mnFile;
     private javax.swing.JMenuItem mnHakPenggunaAkun;
+    private javax.swing.JMenu mnLaporan;
+    private javax.swing.JMenuItem mnLaporanDataProduk;
+    private javax.swing.JMenuItem mnLaporanDataReturProduk;
+    private javax.swing.JMenuItem mnLaporanDataTransaksi;
+    private javax.swing.JMenuItem mnLaporanTransaksiKredit;
     private javax.swing.JMenuItem mnManajemenAkun;
     private javax.swing.JMenuItem mnManajemenHakAkses;
+    private javax.swing.JMenuItem mnPembayaranKredit;
+    private javax.swing.JMenu mnPengaturan;
+    private javax.swing.JMenuItem mnPengaturanSistem;
     private javax.swing.JMenu mnProduk;
+    private javax.swing.JMenuItem mnRestoreDatabase;
+    private javax.swing.JMenuItem mnTentangAplikasi;
+    private javax.swing.JMenuItem mnTentangToko;
     private javax.swing.JMenu mnTransaksi;
+    private javax.swing.JMenuItem mnTransaksiKredit;
     // End of variables declaration//GEN-END:variables
 }

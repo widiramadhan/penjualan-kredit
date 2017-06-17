@@ -40,9 +40,9 @@ public class SessionUtil {
         }
     }
     
-    private void getSession(){
+    public void getSession(){
         try{
-            String sql="select * from pengguna A, hak_akses B where A.id_hak_akses=B.id_gak_akses AND status='0'";
+            String sql="select * from pengguna A, hak_akses B where A.id_hak_akses=B.id_hak_akses AND A.status='0'";
             kon.rs=kon.st.executeQuery(sql);
 
             if (kon.rs.next()){
@@ -50,7 +50,7 @@ public class SessionUtil {
                 ss.setId_pengguna(kon.rs.getString("id_pengguna"));
                 ss.setNama_pengguna(kon.rs.getString("nama"));
                 ss.setEmail(kon.rs.getString("email"));
-                ss.setHak_akses(kon.rs.getString("hak_akses"));
+                ss.setHak_akses(kon.rs.getString("nama_hak_akses"));
                 ss.setUsername(kon.rs.getString("username"));
                 ss.setPassword(kon.rs.getString("password"));
                 ss.setStatus(kon.rs.getString("status"));

@@ -8,18 +8,20 @@ package penjualan.kredit;
 
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import penjualan.kredit.config.Koneksi;
         
 /**
  *
  * @author Widi Ramadhan
  */
-public class RestoreDatabase extends javax.swing.JFrame {
+public class RestoreDatabase extends javax.swing.JDialog {
+    Koneksi kon = new Koneksi();
+    public MenuUtama mu = null;
 
-    /**
-     * Creates new form backuprestore
-     */
-    public RestoreDatabase() {
+    public RestoreDatabase(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
+        kon.setKoneksi();
     }
 
     /**
@@ -43,9 +45,9 @@ public class RestoreDatabase extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
@@ -144,7 +146,7 @@ public class RestoreDatabase extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(578, 299));
+        setSize(new java.awt.Dimension(594, 337));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -219,7 +221,15 @@ public class RestoreDatabase extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RestoreDatabase().setVisible(true);
+                RestoreDatabase dialog = new RestoreDatabase(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

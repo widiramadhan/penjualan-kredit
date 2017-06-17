@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.*;
+import penjualan.kredit.config.SessionUtil;
 
 public class Login extends javax.swing.JFrame {
     Koneksi kon=new Koneksi();
@@ -42,17 +43,14 @@ public class Login extends javax.swing.JFrame {
                    JOptionPane.showMessageDialog(null, "Password anda masih kosong");
                    txtpassword.requestFocus();
                 }else if(kon.rs.next()){
-                    try{
-                        String status="update pengguna set status='0' where username='"+txtusername.getText()+"'";
-                        kon.st.executeUpdate(status);
-                        
-                        JOptionPane.showMessageDialog(null, "Selamat menggunakan aplikasi Penjualan Kredit :)");
-                        MenuUtama mu = new MenuUtama();
-                        mu.setVisible(true);
-                        this.dispose();
-                    }catch(SQLException e){
-                        JOptionPane.showMessageDialog(null, e);
-                    }
+                    //String status="update pengguna set status='0' where username='"+txtusername.getText()+"'";
+                    //kon.st.executeUpdate(status);
+                    SessionUtil su = new SessionUtil();
+                    su.setSession(username);
+                    JOptionPane.showMessageDialog(null, "Selamat menggunakan aplikasi Penjualan Kredit :)");
+                    MenuUtama mu = new MenuUtama();
+                    mu.setVisible(true);
+                    this.dispose();
                 }else{
                     JOptionPane.showMessageDialog(null, "Username atau Password Anda Salah !!!");
                     bersih();
