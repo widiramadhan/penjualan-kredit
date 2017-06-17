@@ -276,7 +276,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
         setSize(new java.awt.Dimension(748, 605));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+ 
     private void bCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCariActionPerformed
 
     }//GEN-LAST:event_bCariActionPerformed
