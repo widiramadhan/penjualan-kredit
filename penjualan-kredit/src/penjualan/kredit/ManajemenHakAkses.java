@@ -16,6 +16,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.io.*;
 import java.util.logging.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -31,113 +33,136 @@ public class ManajemenHakAkses extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         kon.setKoneksi();
-        txtid.setVisible(true);
+        txtid.setVisible(false);
         
     }
     
-private void Bersih(){
-        txtHakAkses.setText("");
-        txtCari.setText("");
-}
+    private void Bersih(){
+        txtid.setText("");
+            txtHakAkses.setText("");
+            txtCari.setText("");
+    }
 
-private void NonAktif(){
-    txtHakAkses.setEnabled(false);
-}
+    private void NonAktif(){
+        txtHakAkses.setEnabled(false);
+    }
 
-private void Aktif(){
-    txtHakAkses.setEnabled(true);
-}
+    private void Aktif(){
+        txtHakAkses.setEnabled(true);
+    }
 
- private void SimpanData(){
-        try{
-            String sql="insert into hak_akses values('"+txtid.getText()+"','"+txtHakAkses.getText()+"',)";
-            kon.st.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null,"Data berhasil disimpan");
-            Bersih();
-            BacaTabelHakAkses();
-        }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null,e);
-        }
-    }
-private void UpdateData(){
-        try{
-            String sql="Update hak_akses set id_hak_akses='"+txtid.getText()+"',nama_hak_akses='"+txtHakAkses.getText()+"'";
-            kon.st.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null,"Data berhasil diupdate");
-            Bersih();
-            BacaTabelHakAkses();
+     private void SimpanData(){
+            try{
+                String sql="insert into hak_akses values('"+NoOtomatis()+"','"+txtHakAkses.getText()+"')";
+                kon.st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Data berhasil disimpan");
+                Bersih();
+                BacaTabelHakAkses();
             }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null,e);
-        }    
-    }
-    
-private void HapusData(){
+            catch(SQLException e){
+                JOptionPane.showMessageDialog(null,e);
+            }
+        }
+     
+    private String NoOtomatis(){
+        String Next_nobp;
+        String no=null;
+        int Next_nobp_int=0;
+        
         try{
-            String sql="Delete from hak_akses where id_hak_akses='"+txtid.getText()+"'";
-            kon.st.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null,"Data berhasil dihapus");
-            Bersih();
-            BacaTabelHakAkses();
-        }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e);
-        }
+            String sql = "Select * from hak_akses ";
+            ResultSet rs = kon.st.executeQuery(sql);
+            if(rs.last()){
+                Next_nobp=rs.getString("id_hak_akses");
+                Next_nobp_int=Integer.parseInt(Next_nobp) + 1;
+                no=String.valueOf(Next_nobp_int);
+                txtid.setText(no);
+            }else{
+                no=String.valueOf(1);
+                txtid.setText(no);
+            }
+        }catch (Exception e){   
+            JOptionPane.showMessageDialog(null,"Error"+e);
+        }return no;
     }
- private void BacaTabelHakAkses(){
-        try{
-            String sql="Select * From hak_akses order by id_hak_akses";
-            kon.rs=kon.st.executeQuery(sql);
-            ResultSetMetaData m=kon.rs.getMetaData();
-            int kolom=m.getColumnCount();
-            int baris=0;
-            while(kon.rs.next()){
-                baris=kon.rs.getRow();
+    private void UpdateData(){
+            try{
+                String sql="Update hak_akses set nama_hak_akses='"+txtHakAkses.getText()+"' where id_hak_akses='"+txtid.getText()+"'";
+                kon.st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Data berhasil diupdate");
+                Bersih();
+                BacaTabelHakAkses();
+                }
+            catch(SQLException e){
+                JOptionPane.showMessageDialog(null,e);
+            }    
+        }
+
+    private void HapusData(){
+            try{
+                String sql="Delete from hak_akses where id_hak_akses='"+txtid.getText()+"'";
+                kon.st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Data berhasil dihapus");
+                Bersih();
+                BacaTabelHakAkses();
             }
-            datahakakses=new Object[baris][kolom];
-            int x=0;
-            kon.rs.beforeFirst();
-            while(kon.rs.next()){
-                datahakakses[x][0]=kon.rs.getString("id_hak_akses");
-                datahakakses[x][1]=kon.rs.getString("nama_hak_akses");
-                x++;
+            catch(SQLException e){
+                JOptionPane.showMessageDialog(null, e);
             }
-            tblHakAkses.setModel(new DefaultTableModel(datahakakses,label));
         }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
- private void Pencarian(){
-        try{
-            String sql="select * from hak_akses where nama like '%" +txtCari.getText()+ "%' ";
-            kon.rs=kon.st.executeQuery(sql);
-            ResultSetMetaData m=kon.rs.getMetaData();
-            int kolom=m.getColumnCount();
-            int baris=0;
-            while(kon.rs.next()){
-                baris=kon.rs.getRow();
+     private void BacaTabelHakAkses(){
+            try{
+                String sql="Select * From hak_akses order by id_hak_akses";
+                kon.rs=kon.st.executeQuery(sql);
+                ResultSetMetaData m=kon.rs.getMetaData();
+                int kolom=m.getColumnCount();
+                int baris=0;
+                while(kon.rs.next()){
+                    baris=kon.rs.getRow();
+                }
+                datahakakses=new Object[baris][kolom];
+                int x=0;
+                kon.rs.beforeFirst();
+                while(kon.rs.next()){
+                    datahakakses[x][0]=kon.rs.getString("id_hak_akses");
+                    datahakakses[x][1]=kon.rs.getString("nama_hak_akses");
+                    x++;
+                }
+                tblHakAkses.setModel(new DefaultTableModel(datahakakses,label));
             }
-            datahakakses=new Object[baris][kolom];
-            int x=0;
-            kon.rs.beforeFirst();
-            while(kon.rs.next()){
-                datahakakses[x][0]=kon.rs.getString("id_hak_akses");
-                datahakakses[x][1]=kon.rs.getString("nama_hak_akses");
-                x++;
+            catch(SQLException e){
+                JOptionPane.showMessageDialog(null, e);
             }
-            tblHakAkses.setModel(new DefaultTableModel(datahakakses,label));
         }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e);
+     private void Pencarian(){
+            try{
+                String sql="select * from hak_akses where nama_hak_akses like '%" +txtCari.getText()+ "%' ";
+                kon.rs=kon.st.executeQuery(sql);
+                ResultSetMetaData m=kon.rs.getMetaData();
+                int kolom=m.getColumnCount();
+                int baris=0;
+                while(kon.rs.next()){
+                    baris=kon.rs.getRow();
+                }
+                datahakakses=new Object[baris][kolom];
+                int x=0;
+                kon.rs.beforeFirst();
+                while(kon.rs.next()){
+                    datahakakses[x][0]=kon.rs.getString("id_hak_akses");
+                    datahakakses[x][1]=kon.rs.getString("nama_hak_akses");
+                    x++;
+                }
+                tblHakAkses.setModel(new DefaultTableModel(datahakakses,label));
+            }
+            catch(SQLException e){
+                JOptionPane.showMessageDialog(null, e);
+            }
         }
-    }
-  private void setTable(){
-            int row=tblHakAkses.getSelectedRow();
-            txtid.setText((String)tblHakAkses.getValueAt(row,0));
-            txtHakAkses.setText((String)tblHakAkses.getValueAt(row,1));
-        }
+      private void setTable(){
+                int row=tblHakAkses.getSelectedRow();
+                txtid.setText((String)tblHakAkses.getValueAt(row,0));
+                txtHakAkses.setText((String)tblHakAkses.getValueAt(row,1));
+            }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -246,11 +271,30 @@ private void HapusData(){
 
         jLabel3.setText("Cari Berdasarkan Nama Hak Akses :");
 
+        txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCariKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCariKeyTyped(evt);
+            }
+        });
+
         btnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/cari.png"))); // NOI18N
         btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
 
         btnAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/refresh.png"))); // NOI18N
         btnAll.setText("Tampilkan Semua");
+        btnAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -258,39 +302,37 @@ private void HapusData(){
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(txtHakAkses, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnTambah))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnSimpan)
-                                    .addComponent(btnHapus))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnKeluar)))
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                                    .addComponent(txtCari, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAll))))
-                    .addComponent(jSeparator1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(txtHakAkses, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnTambah))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnSimpan)
+                                        .addComponent(btnHapus))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnKeluar)))
+                            .addGap(34, 34, 34)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                                        .addComponent(txtCari, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnAll))))
+                        .addComponent(jSeparator1)))
                 .addContainerGap(20, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(254, 254, 254))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,9 +366,9 @@ private void HapusData(){
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101))
+                .addGap(113, 113, 113))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -346,13 +388,13 @@ private void HapusData(){
             NonAktif();
             btnSimpan.setText("Simpan");
             btnKeluar.setText("Keluar");
-            btambah.setEnabled(true);
-            bsimpan.setEnabled(false);
-            bedit.setEnabled(false);
-            bhapus.setEnabled(false);
+            btnTambah.setEnabled(true);
+            btnSimpan.setEnabled(false);
+            btnEdit.setEnabled(false);
+            btnHapus.setEnabled(false);
             txtCari.setEnabled(true);
-            bCari.setEnabled(true);
-            bAll.setEnabled(true);
+            btnCari.setEnabled(true);
+            btnAll.setEnabled(true);
         }else{
             this.dispose();
         }
@@ -400,6 +442,7 @@ private void HapusData(){
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         Aktif();
+        NoOtomatis();
         txtHakAkses.requestFocus();
         btnKeluar.setText("Batal");
         btnSimpan.setEnabled(true);
@@ -412,7 +455,38 @@ private void HapusData(){
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
+        String simpan=btnSimpan.getText();
+        if(simpan.equals("Simpan")){
+            if (txtHakAkses.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Lengkapi Data", "Konfirmasi", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                SimpanData();
+                Bersih();
+                NonAktif();
+                btnSimpan.setText("Simpan");
+                btnKeluar.setText("Keluar");
+                btnTambah.setEnabled(true);
+                btnSimpan.setEnabled(false);
+                btnEdit.setEnabled(false);
+                btnHapus.setEnabled(false);
+                txtCari.setEnabled(true);
+                btnCari.setEnabled(true);
+                btnAll.setEnabled(true);
+            }
+        }else{
+            UpdateData();
+            Bersih();
+            NonAktif();
+            btnSimpan.setText("Simpan");
+            btnKeluar.setText("Keluar");
+            btnTambah.setEnabled(true);
+            btnSimpan.setEnabled(false);
+            btnEdit.setEnabled(false);
+            btnHapus.setEnabled(false);
+            txtCari.setEnabled(true);
+            btnCari.setEnabled(true);
+            btnAll.setEnabled(true);
+        }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -426,6 +500,25 @@ private void HapusData(){
         btnCari.setEnabled(false);
         btnAll.setEnabled(false);
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+        Pencarian();
+    }//GEN-LAST:event_btnCariActionPerformed
+
+    private void btnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllActionPerformed
+        BacaTabelHakAkses();
+        txtCari.setText("");
+    }//GEN-LAST:event_btnAllActionPerformed
+
+    private void txtCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            Pencarian();
+        }
+    }//GEN-LAST:event_txtCariKeyPressed
+
+    private void txtCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyTyped
+        Pencarian();
+    }//GEN-LAST:event_txtCariKeyTyped
 
     /**
      * @param args the command line arguments
