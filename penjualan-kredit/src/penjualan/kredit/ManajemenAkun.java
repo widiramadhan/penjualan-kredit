@@ -57,7 +57,6 @@ public class ManajemenAkun extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
@@ -71,6 +70,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
         bKeluar = new javax.swing.JButton();
         bhapus = new javax.swing.JButton();
         bedit = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.BorderLayout());
@@ -162,6 +162,8 @@ public class ManajemenAkun extends javax.swing.JDialog {
             }
         });
 
+        jPasswordField1.setText("jPasswordField1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -170,21 +172,19 @@ public class ManajemenAkun extends javax.swing.JDialog {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                            .addComponent(jTextField1)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
-                            .addComponent(jLabel7))
+                            .addComponent(jComboBox1, 0, 198, Short.MAX_VALUE)
+                            .addComponent(jLabel7)
+                            .addComponent(jPasswordField1))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -251,7 +251,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -278,149 +278,37 @@ public class ManajemenAkun extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCariActionPerformed
-        // TODO add your handling code here:
-        //Pencarian();
+
     }//GEN-LAST:event_bCariActionPerformed
 
     private void bAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAllActionPerformed
-        // TODO add your handling code here:
-        //BacaTabelPengguna();
+
     }//GEN-LAST:event_bAllActionPerformed
 
     private void tabel_penggunaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_penggunaMouseClicked
-        // TODO add your handling code here:
-        //setTable();
-        bKeluar.setText("Batal");
-        bhapus.setEnabled(true);
-        bedit.setEnabled(true);
-        btambah.setEnabled(false);
+
     }//GEN-LAST:event_tabel_penggunaMouseClicked
 
     private void btambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btambahActionPerformed
-        // TODO add your handling code here:
-       // aktif();
-        //tnama.requestFocus();
-        bKeluar.setText("Batal");
-        bsimpan.setEnabled(true);
-        btambah.setEnabled(false);
-        bedit.setEnabled(false);
-        bhapus.setEnabled(false);
-       // tCari.setEnabled(false);
-        bCari.setEnabled(false);
-        bAll.setEnabled(false);
-        //no_otomatis();
+  
     }//GEN-LAST:event_btambahActionPerformed
 
     private void bsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpanActionPerformed
-        // TODO add your handling code here:
-        String simpan=bsimpan.getText();
-        if(simpan.equals("Simpan"))
-        if (tid_pengguna.getText().isEmpty() || tnama.getText().isEmpty() || temail.getText().isEmpty() || tusername.getText().isEmpty() || tpassword.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Lengkapi Data", "Konfirmasi", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            String email = temail.getText();
-            Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
-            Matcher m = p.matcher(email);
-            boolean matchFound = m.matches();
-            if (matchFound){
-                SimpanData();
-                Bersih();
-                nonaktif();
-                bsimpan.setText("Simpan");
-                bKeluar.setText("Keluar");
-                btambah.setEnabled(true);
-                bsimpan.setEnabled(false);
-                bedit.setEnabled(false);
-                bhapus.setEnabled(false);
-                tCari.setEnabled(true);
-                bCari.setEnabled(true);
-                bAll.setEnabled(true);
-            }else{
-                JOptionPane.showMessageDialog(null,"Alamat Email tidak Valid");
-                temail.setText("");
-                temail.requestFocus();
-            }
-        }else{
-            String email = temail.getText();
-            Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
-            Matcher m = p.matcher(email);
-            boolean matchFound = m.matches();
-            if (matchFound){
-                UpdateData();
-                Bersih();
-                nonaktif();
-                bsimpan.setText("Simpan");
-                bKeluar.setText("Keluar");
-                btambah.setEnabled(true);
-                bsimpan.setEnabled(false);
-                bedit.setEnabled(false);
-                bhapus.setEnabled(false);
-                tCari.setEnabled(true);
-                bCari.setEnabled(true);
-                bAll.setEnabled(true);
-            }else{
-                JOptionPane.showMessageDialog(null,"Alamat Email tidak Valid");
-            }
-        }
+   
     }//GEN-LAST:event_bsimpanActionPerformed
 
     private void bKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bKeluarActionPerformed
-        // TODO add your handling code here:
-        String keluar=bKeluar.getText();
-        if(keluar.equals("Batal")){
-            Bersih();
-            nonaktif();
-            bsimpan.setText("Simpan");
-            bKeluar.setText("Keluar");
-            btambah.setEnabled(true);
-            bsimpan.setEnabled(false);
-            bedit.setEnabled(false);
-            bhapus.setEnabled(false);
-            tCari.setEnabled(true);
-            bCari.setEnabled(true);
-            bAll.setEnabled(true);
-        }else{
-            this.dispose();
-            menuutama mu = new menuutama(); //habis ini berjalan langsung ke form login
-            mu.setVisible(true);
-        }
+     
     }//GEN-LAST:event_bKeluarActionPerformed
 
     private void bhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bhapusActionPerformed
         // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(this, "yakin mau dihapus?", "konfirmasi", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            HapusData();
-            Bersih();
-            nonaktif();
-            bsimpan.setText("Simpan");
-            bKeluar.setText("Keluar");
-            btambah.setEnabled(true);
-            bsimpan.setEnabled(false);
-            bedit.setEnabled(false);
-            bhapus.setEnabled(false);
-            tCari.setEnabled(true);
-            bCari.setEnabled(true);
-            bAll.setEnabled(true);
-        } else {
-
-            JOptionPane.showMessageDialog(this, "Data Batal Dihapus", "Konfirmasi", JOptionPane.INFORMATION_MESSAGE);
-            //btambah.setEnabled(true);
-            return;
-        }
-        //formWindowActivated(null);
+       
     }//GEN-LAST:event_bhapusActionPerformed
 
     private void beditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beditActionPerformed
         // TODO add your handling code here:
-        aktif();
-        bsimpan.setText("Update");
-        bKeluar.setText("Batal");
-        bsimpan.setEnabled(true);
-        bedit.setEnabled(false);
-        bhapus.setEnabled(false);
-        tCari.setEnabled(false);
-        bCari.setEnabled(false);
-        bAll.setEnabled(false);
+    
     }//GEN-LAST:event_beditActionPerformed
 
     /**
@@ -491,13 +379,13 @@ public class ManajemenAkun extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTable tabel_pengguna;
     // End of variables declaration//GEN-END:variables
