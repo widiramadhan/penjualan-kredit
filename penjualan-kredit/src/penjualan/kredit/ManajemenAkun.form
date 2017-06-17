@@ -229,6 +229,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="bCari">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/penjualan/kredit/gambar/cari.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cari"/>
           </Properties>
           <Events>
@@ -240,6 +243,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="bAll">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/penjualan/kredit/gambar/refresh.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Tampilkan Semua"/>
           </Properties>
           <Events>

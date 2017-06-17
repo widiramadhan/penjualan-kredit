@@ -95,6 +95,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
 
         jLabel8.setText("Cari Berdasarkan Nama Pengguna :");
 
+        bCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/cari.png"))); // NOI18N
         bCari.setText("Cari");
         bCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +103,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
             }
         });
 
+        bAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/refresh.png"))); // NOI18N
         bAll.setText("Tampilkan Semua");
         bAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
