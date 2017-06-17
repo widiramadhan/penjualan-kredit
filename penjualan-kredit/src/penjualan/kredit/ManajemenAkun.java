@@ -16,6 +16,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.io.*;
 import java.util.logging.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -24,6 +26,7 @@ import java.util.logging.*;
 public class ManajemenAkun extends javax.swing.JDialog {
     Koneksi kon = new Koneksi();
     public MenuUtama mu = null;
+    private String[]label={"Id Pengguna","Nama","Email","Username","Akses Level"};
 
     public ManajemenAkun(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -33,8 +36,167 @@ public class ManajemenAkun extends javax.swing.JDialog {
         
     }
     
-
+    private void validasiemail(){
+          String email = txtEmail.getText();
+          Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+          Matcher m = p.matcher(email);
+          boolean matchFound = m.matches();
+          if (matchFound)
+            SimpanData();
+          else
+            JOptionPane.showMessageDialog(null,"Alamat Email tidak Valid");
+    }
     
+    private String no_otomatis(){
+        String no=null;
+        try{
+            String sql = "Select right(id_pengguna,3)+1 from pengguna ";
+            ResultSet rs = kon.st.executeQuery(sql);
+            if (rs.next()){
+                rs.last();
+                no = rs.getString(1);
+                while (no.length()<5){
+                    no="00"+no;
+                    no="ADM-"+no;
+                txtIdPengguna.setText(no);    
+                }
+            }else{
+                no="ADM-001";
+                txtIdPengguna.setText(no);    
+            }
+        }catch (Exception e){ 
+            JOptionPane.showMessageDialog(null, "No Otomatis Error");
+        }return no;
+    }
+    
+    private void Bersih(){
+        txtIdPengguna.setText("");
+        txtNamaPengguna.setText("");
+        txtEmail.setText("");
+        txtUsername.setText("");
+        txtPassword.setText("");
+        cmbHakAkses.setSelectedItem("- PILIH HAK AKSES -");
+    }
+    
+    private void aktif(){
+        txtNamaPengguna.setEnabled(true);
+        txtEmail.setEnabled(true);
+        txtUsername.setEnabled(true);
+        txtPassword.setEnabled(true);
+        cmbHakAkses.setEnabled(true);
+    }
+    
+    private void nonaktif(){
+        txtNamaPengguna.setEnabled(false);
+        txtEmail.setEnabled(false);
+        txtUsername.setEnabled(false);
+        txtPassword.setEnabled(false);
+        cmbHakAkses.setEnabled(false);
+    }
+    
+    private void SimpanData(){
+        try{
+            String sql="insert into pengguna values('"+txtIdPengguna.getText()+"','"+txtNamaPengguna.getText()+"','"+txtEmail.getText()+"','"+txtEmail.getText()+"','"+txtPassword.getText()+"','"+cmbHakAkses.getSelectedItem().equals(kon)+"','1')";
+            kon.st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null,"Data berhasil disimpan");
+            Bersih();
+            BacaTabelPengguna();
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null,e);
+        }
+    }
+    
+    private void UpdateData(){
+        try{
+            String sql="Update pengguna set id_pengguna='"+tid_pengguna.getText()+"',nama='"+tnama.getText()+"',email='"+temail.getText()+"',username='"+tusername.getText()+"',password='"+tpassword.getText()+"' where id_pengguna='"+tid_pengguna.getText()+"'";
+            kon.st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null,"Data berhasil diupdate");
+            Bersih();
+            BacaTabelPengguna();
+            }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null,e);
+        }    
+    }
+
+        private void HapusData(){
+        try{
+            String sql="Delete from pengguna where id_pengguna='"+tid_pengguna.getText()+"'";
+            kon.st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null,"Data berhasil dihapus");
+            Bersih();
+            BacaTabelPengguna();
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    private void BacaTabelPengguna(){
+        try{
+            String sql="Select * From pengguna order by id_pengguna";
+            kon.rs=kon.st.executeQuery(sql);
+            ResultSetMetaData m=kon.rs.getMetaData();
+            int kolom=m.getColumnCount();
+            int baris=0;
+            while(kon.rs.next()){
+                baris=kon.rs.getRow();
+            }
+            datapengguna=new Object[baris][kolom];
+            int x=0;
+            kon.rs.beforeFirst();
+            while(kon.rs.next()){
+                datapengguna[x][0]=kon.rs.getString("id_pengguna");
+                datapengguna[x][1]=kon.rs.getString("nama");
+                datapengguna[x][2]=kon.rs.getString("email");
+                datapengguna[x][3]=kon.rs.getString("username");
+                datapengguna[x][4]=kon.rs.getString("hak_akses");
+                x++;
+            }
+            tabel_pengguna.setModel(new DefaultTableModel(datapengguna,label));
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+     private void Pencarian(){
+        try{
+            String sql="select * from pengguna where nama like '%" +tCari.getText()+ "%' ";
+            kon.rs=kon.st.executeQuery(sql);
+            ResultSetMetaData m=kon.rs.getMetaData();
+            int kolom=m.getColumnCount();
+            int baris=0;
+            while(kon.rs.next()){
+                baris=kon.rs.getRow();
+            }
+            datapengguna=new Object[baris][kolom];
+            int x=0;
+            kon.rs.beforeFirst();
+            while(kon.rs.next()){
+                datapengguna[x][0]=kon.rs.getString("id_pengguna");
+                datapengguna[x][1]=kon.rs.getString("nama");
+                datapengguna[x][2]=kon.rs.getString("email");
+                datapengguna[x][3]=kon.rs.getString("username");
+                datapengguna[x][4]=kon.rs.getString("hak_akses");
+                 x++;
+            }
+            tabel_pengguna.setModel(new DefaultTableModel(datapengguna,label));
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+          
+        private void setTable(){
+            int row=tabel_pengguna.getSelectedRow();
+            tid_pengguna.setText((String)tabel_pengguna.getValueAt(row,0));
+            tnama.setText((String)tabel_pengguna.getValueAt(row,1));
+            temail.setText((String)tabel_pengguna.getValueAt(row,2));
+            tusername.setText((String)tabel_pengguna.getValueAt(row,3));
+            tpassword.setText((String)tabel_pengguna.getValueAt(row,4));
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,20 +211,20 @@ public class ManajemenAkun extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtIdPengguna = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtNamaPengguna = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbHakAkses = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         bCari = new javax.swing.JButton();
         bAll = new javax.swing.JButton();
-        jTextField6 = new javax.swing.JTextField();
+        txtCari = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabel_pengguna = new javax.swing.JTable();
         btambah = new javax.swing.JButton();
@@ -70,7 +232,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
         bKeluar = new javax.swing.JButton();
         bhapus = new javax.swing.JButton();
         bedit = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.BorderLayout());
@@ -91,7 +253,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
 
         jLabel7.setText("Hak Akses");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbHakAkses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel8.setText("Cari Berdasarkan Nama Pengguna :");
 
@@ -169,9 +331,9 @@ public class ManajemenAkun extends javax.swing.JDialog {
             }
         });
 
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                txtPasswordActionPerformed(evt);
             }
         });
 
@@ -185,21 +347,21 @@ public class ManajemenAkun extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                            .addComponent(jTextField1)
+                            .addComponent(txtNamaPengguna, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                            .addComponent(txtIdPengguna)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
-                            .addComponent(jComboBox1, 0, 198, Short.MAX_VALUE)
+                            .addComponent(cmbHakAkses, 0, 198, Short.MAX_VALUE)
                             .addComponent(jLabel7)
-                            .addComponent(jPasswordField1))
+                            .addComponent(txtPassword))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(bCari)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -235,9 +397,9 @@ public class ManajemenAkun extends javax.swing.JDialog {
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCari, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIdPengguna, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(bCari)
                         .addComponent(bAll)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -245,23 +407,23 @@ public class ManajemenAkun extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNamaPengguna, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbHakAkses, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -317,9 +479,9 @@ public class ManajemenAkun extends javax.swing.JDialog {
     
     }//GEN-LAST:event_beditActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -379,7 +541,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
     private javax.swing.JButton bhapus;
     private javax.swing.JButton bsimpan;
     private javax.swing.JButton btambah;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cmbHakAkses;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -389,14 +551,14 @@ public class ManajemenAkun extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTable tabel_pengguna;
+    private javax.swing.JTextField txtCari;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtIdPengguna;
+    private javax.swing.JTextField txtNamaPengguna;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
