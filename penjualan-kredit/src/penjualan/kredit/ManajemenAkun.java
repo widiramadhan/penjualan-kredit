@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 public class ManajemenAkun extends javax.swing.JDialog {
     Koneksi kon = new Koneksi();
     public MenuUtama mu = null;
+    private Object [][] datapengguna=null;
     private String[]label={"Id Pengguna","Nama","Email","Username","Akses Level"};
 
     public ManajemenAkun(java.awt.Frame parent, boolean modal) {
@@ -33,7 +34,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
         initComponents();
         kon.setKoneksi();      
         this.setResizable(false);
-        
+        tampilHakAkses();
     }
     
     private void validasiemail(){
@@ -87,11 +88,24 @@ public class ManajemenAkun extends javax.swing.JDialog {
     }
     
     private void nonaktif(){
+        txtIdPengguna.setEnabled(false);
         txtNamaPengguna.setEnabled(false);
         txtEmail.setEnabled(false);
         txtUsername.setEnabled(false);
         txtPassword.setEnabled(false);
         cmbHakAkses.setEnabled(false);
+    }
+    
+    private void tampilHakAkses(){
+        try{
+            String sql="select * from hak_akses order by nama_hak_akses asc";
+            kon.rs=kon.st.executeQuery(sql);
+            while(kon.rs.next()){
+                cmbHakAkses.addItem(kon.rs.getString("nama_hak_akses"));
+            }
+        }catch(Exception e){
+            
+        }
     }
     
         private String simpanHakAkses(){
@@ -109,7 +123,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
     
     private void SimpanData(){
         try{
-            String sql="insert into pengguna values('"+txtIdPengguna.getText()+"','"+txtNamaPengguna.getText()+"','"+txtEmail.getText()+"','"+txtEmail.getText()+"','"+txtPassword.getText()+"','"+simpanHakAkses()+"','1')";
+            String sql="insert into pengguna values('"+txtIdPengguna.getText()+"','"+txtNamaPengguna.getText()+"','"+txtEmail.getText()+"','"+txtUsername.getText()+"','"+txtPassword.getText()+"','"+simpanHakAkses()+"','',1')";
             kon.st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null,"Data berhasil disimpan");
             Bersih();
@@ -122,7 +136,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
     
     private void UpdateData(){
         try{
-            String sql="Update pengguna set id_pengguna='"+txtIdPengguna.getText()+"',nama='"+tnama.getText()+"',email='"+temail.getText()+"',username='"+tusername.getText()+"',password='"+tpassword.getText()+"' where id_pengguna='"+tid_pengguna.getText()+"'";
+            String sql="Update pengguna set id_pengguna='"+txtIdPengguna.getText()+"',nama='"+txtNamaPengguna.getText()+"',email='"+txtEmail.getText()+"',username='"+txtUsername.getText()+"',password='"+txtPassword.getText()+"' where id_pengguna='"+txtIdPengguna.getText()+"'";
             kon.st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null,"Data berhasil diupdate");
             Bersih();
@@ -135,7 +149,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
 
         private void HapusData(){
         try{
-            String sql="Delete from pengguna where id_pengguna='"+tid_pengguna.getText()+"'";
+            String sql="Delete from pengguna where id_pengguna='"+txtIdPengguna.getText()+"'";
             kon.st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null,"Data berhasil dihapus");
             Bersih();
@@ -148,7 +162,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
 
     private void BacaTabelPengguna(){
         try{
-            String sql="Select * From pengguna order by id_pengguna";
+            String sql="Select * From pengguna A, hak_akses B where A.id_hak_akses=B.id_hak_akses order by A.id_pengguna";
             kon.rs=kon.st.executeQuery(sql);
             ResultSetMetaData m=kon.rs.getMetaData();
             int kolom=m.getColumnCount();
@@ -164,7 +178,8 @@ public class ManajemenAkun extends javax.swing.JDialog {
                 datapengguna[x][1]=kon.rs.getString("nama");
                 datapengguna[x][2]=kon.rs.getString("email");
                 datapengguna[x][3]=kon.rs.getString("username");
-                datapengguna[x][4]=kon.rs.getString("hak_akses");
+                datapengguna[x][4]=kon.rs.getString("nama_hak_akses");
+                
                 x++;
             }
             tabel_pengguna.setModel(new DefaultTableModel(datapengguna,label));
@@ -176,7 +191,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
 
      private void Pencarian(){
         try{
-            String sql="select * from pengguna where nama like '%" +tCari.getText()+ "%' ";
+            String sql="select * from pengguna where nama like '%" +txtCari.getText()+ "%' ";
             kon.rs=kon.st.executeQuery(sql);
             ResultSetMetaData m=kon.rs.getMetaData();
             int kolom=m.getColumnCount();
@@ -204,11 +219,12 @@ public class ManajemenAkun extends javax.swing.JDialog {
           
         private void setTable(){
             int row=tabel_pengguna.getSelectedRow();
-            tid_pengguna.setText((String)tabel_pengguna.getValueAt(row,0));
-            tnama.setText((String)tabel_pengguna.getValueAt(row,1));
-            temail.setText((String)tabel_pengguna.getValueAt(row,2));
-            tusername.setText((String)tabel_pengguna.getValueAt(row,3));
-            tpassword.setText((String)tabel_pengguna.getValueAt(row,4));
+            txtIdPengguna.setText((String)tabel_pengguna.getValueAt(row,0));
+            txtNamaPengguna.setText((String)tabel_pengguna.getValueAt(row,1));
+            txtEmail.setText((String)tabel_pengguna.getValueAt(row,2));
+            txtUsername.setText((String)tabel_pengguna.getValueAt(row,3));
+            txtPassword.setText((String)tabel_pengguna.getValueAt(row,4));
+            cmbHakAkses.setSelectedItem((String)tabel_pengguna.getValueAt(row,4));
         }
 
     /**
@@ -248,6 +264,11 @@ public class ManajemenAkun extends javax.swing.JDialog {
         txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -266,7 +287,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
 
         jLabel7.setText("Hak Akses");
 
-        cmbHakAkses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbHakAkses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- PILIH HAK AKSES -" }));
 
         jLabel8.setText("Cari Berdasarkan Nama Pengguna :");
 
@@ -283,6 +304,12 @@ public class ManajemenAkun extends javax.swing.JDialog {
         bAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAllActionPerformed(evt);
+            }
+        });
+
+        txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCariKeyPressed(evt);
             }
         });
 
@@ -356,31 +383,36 @@ public class ManajemenAkun extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(txtNamaPengguna, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                            .addComponent(txtIdPengguna)
-                            .addComponent(jLabel6)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(cmbHakAkses, 0, 198, Short.MAX_VALUE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtPassword))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(bCari)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel8)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtNamaPengguna, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                                    .addComponent(txtIdPengguna)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(cmbHakAkses, 0, 198, Short.MAX_VALUE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(txtPassword))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(bCari)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel8)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator1))
+                        .addContainerGap(34, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -392,10 +424,8 @@ public class ManajemenAkun extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(bhapus, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bKeluar))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator1))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addComponent(bKeluar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,7 +469,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
                         .addComponent(cmbHakAkses, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btambah, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -459,42 +489,158 @@ public class ManajemenAkun extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
  
     private void bCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCariActionPerformed
-
+        Pencarian();
     }//GEN-LAST:event_bCariActionPerformed
 
     private void bAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAllActionPerformed
-
+        BacaTabelPengguna();
     }//GEN-LAST:event_bAllActionPerformed
 
     private void tabel_penggunaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_penggunaMouseClicked
-
+        setTable();
+        bKeluar.setText("Batal");
+        bhapus.setEnabled(true);
+        bedit.setEnabled(true);
+        btambah.setEnabled(false);
     }//GEN-LAST:event_tabel_penggunaMouseClicked
 
     private void btambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btambahActionPerformed
-  
+        aktif();
+        txtNamaPengguna.requestFocus();
+        bKeluar.setText("Batal");
+        bsimpan.setEnabled(true);
+        btambah.setEnabled(false);
+        bedit.setEnabled(false);
+        bhapus.setEnabled(false);
+        txtCari.setEnabled(false);
+        bCari.setEnabled(false);
+        bAll.setEnabled(false);
+        no_otomatis();
     }//GEN-LAST:event_btambahActionPerformed
 
     private void bsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpanActionPerformed
-   
+        String simpan=bsimpan.getText();
+        if(simpan.equals("Simpan"))
+        if (txtIdPengguna.getText().isEmpty() || txtNamaPengguna.getText().isEmpty() || txtEmail.getText().isEmpty() || txtUsername.getText().isEmpty() || txtPassword.getText().isEmpty() || cmbHakAkses.equals("- PILIH HAK AKSES -")) {
+            JOptionPane.showMessageDialog(this, "Lengkapi Data", "Konfirmasi", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            String email = txtEmail.getText();
+            Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+            Matcher m = p.matcher(email);
+            boolean matchFound = m.matches();
+            if (matchFound){
+                SimpanData();
+                Bersih();
+                nonaktif();
+                bsimpan.setText("Simpan");
+                bKeluar.setText("Keluar");
+                btambah.setEnabled(true);
+                bsimpan.setEnabled(false);
+                bedit.setEnabled(false);
+                bhapus.setEnabled(false);
+                txtCari.setEnabled(true);
+                bCari.setEnabled(true);
+                bAll.setEnabled(true);
+            }else{
+                JOptionPane.showMessageDialog(null,"Alamat Email tidak Valid");
+                txtEmail.setText("");
+                txtEmail.requestFocus();
+            }
+        }else{
+            String email = txtEmail.getText();
+            Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+            Matcher m = p.matcher(email);
+            boolean matchFound = m.matches();
+            if (matchFound){
+                UpdateData();
+                Bersih();
+                nonaktif();
+                bsimpan.setText("Simpan");
+                bKeluar.setText("Keluar");
+                btambah.setEnabled(true);
+                bsimpan.setEnabled(false);
+                bedit.setEnabled(false);
+                bhapus.setEnabled(false);
+                txtCari.setEnabled(true);
+                bCari.setEnabled(true);
+                bAll.setEnabled(true);
+            }else{
+                JOptionPane.showMessageDialog(null,"Alamat Email tidak Valid");
+            }
+        }
     }//GEN-LAST:event_bsimpanActionPerformed
 
     private void bKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bKeluarActionPerformed
-     
+        String keluar=bKeluar.getText();
+        if(keluar.equals("Batal")){
+            Bersih();
+            nonaktif();
+            bsimpan.setText("Simpan");
+            bKeluar.setText("Keluar");
+            btambah.setEnabled(true);
+            bsimpan.setEnabled(false);
+            bedit.setEnabled(false);
+            bhapus.setEnabled(false);
+            txtCari.setEnabled(true);
+            bCari.setEnabled(true);
+            bAll.setEnabled(true);
+        }else{
+            this.dispose();
+        }
     }//GEN-LAST:event_bKeluarActionPerformed
 
     private void bhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bhapusActionPerformed
-        // TODO add your handling code here:
-       
+        if (JOptionPane.showConfirmDialog(this, "yakin mau dihapus?", "konfirmasi", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            HapusData();
+            Bersih();
+            nonaktif();
+            bsimpan.setText("Simpan");
+            bKeluar.setText("Keluar");
+            btambah.setEnabled(true);
+            bsimpan.setEnabled(false);
+            bedit.setEnabled(false);
+            bhapus.setEnabled(false);
+            txtCari.setEnabled(true);
+            bCari.setEnabled(true);
+            bAll.setEnabled(true);
+        } else {
+
+            JOptionPane.showMessageDialog(this, "Data Batal Dihapus", "Konfirmasi", JOptionPane.INFORMATION_MESSAGE);
+            //btambah.setEnabled(true);
+            return;
+        }
     }//GEN-LAST:event_bhapusActionPerformed
 
     private void beditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beditActionPerformed
-        // TODO add your handling code here:
-    
+        aktif();
+        bsimpan.setText("Update");
+        bKeluar.setText("Batal");
+        bsimpan.setEnabled(true);
+        bedit.setEnabled(false);
+        bhapus.setEnabled(false);
+        txtCari.setEnabled(false);
+        bCari.setEnabled(false);
+        bAll.setEnabled(false);
     }//GEN-LAST:event_beditActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        BacaTabelPengguna();
+        Bersih();
+        nonaktif();
+        bsimpan.setEnabled(false);
+        bedit.setEnabled(false);
+        bhapus.setEnabled(false);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void txtCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            Pencarian();
+        }
+    }//GEN-LAST:event_txtCariKeyPressed
 
     /**
      * @param args the command line arguments
