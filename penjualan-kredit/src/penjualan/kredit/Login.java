@@ -43,10 +43,10 @@ public class Login extends javax.swing.JFrame {
                    JOptionPane.showMessageDialog(null, "Password anda masih kosong");
                    txtpassword.requestFocus();
                 }else if(kon.rs.next()){
-                    //String status="update pengguna set status='0' where username='"+txtusername.getText()+"'";
-                    //kon.st.executeUpdate(status);
-                    SessionUtil su = new SessionUtil();
-                    su.setSession(username);
+                    String deactiveAllAcount="update pengguna set status='1'";
+                    kon.st.executeUpdate(deactiveAllAcount);
+                    String status="update pengguna set status='0' where username='"+txtusername.getText()+"'";
+                    kon.st.executeUpdate(status);
                     JOptionPane.showMessageDialog(null, "Selamat menggunakan aplikasi Penjualan Kredit :)");
                     MenuUtama mu = new MenuUtama();
                     mu.setVisible(true);

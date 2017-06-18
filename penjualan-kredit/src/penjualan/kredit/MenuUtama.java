@@ -28,8 +28,6 @@ public class MenuUtama extends javax.swing.JFrame {
         initComponents();
         kon.setKoneksi();
         cekLogin();
-        
-
     }
     
     public void cekLogin(){
@@ -53,10 +51,15 @@ public class MenuUtama extends javax.swing.JFrame {
                 jMenu1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
                 
                 //menambahkan menu item
-                JMenuItem menuitem1 = new JMenuItem("Ganti Password");
-                JMenuItem menuitem2 = new JMenuItem("Logout");
-                jMenu1.add(menuitem1);
-                jMenu1.add(menuitem2);
+                JMenuItem mnGantiPassword = new JMenuItem("Ganti Password");
+                mnGantiPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/key.png")));
+                JMenuItem mnLogout = new JMenuItem("Keluar Akun");
+                mnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/logout.png")));
+                JMenuItem mnExit = new JMenuItem("Keluar Program");
+                mnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/remove.png")));
+                jMenu1.add(mnGantiPassword);
+                jMenu1.add(mnLogout);
+                jMenu1.add(mnExit);
             }
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, e);
@@ -108,6 +111,7 @@ public class MenuUtama extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Halaman Utama - Aplikasi Penjualan Krdit CV. Takaidetama Indonesia");
 
         mnFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/home.png"))); // NOI18N
         mnFile.setText("File");
@@ -134,10 +138,20 @@ public class MenuUtama extends javax.swing.JFrame {
 
         mnDataKategori.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/list.png"))); // NOI18N
         mnDataKategori.setText("Data Kategori");
+        mnDataKategori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDataKategoriActionPerformed(evt);
+            }
+        });
         mnProduk.add(mnDataKategori);
 
         mnDataMerk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/price-tag.png"))); // NOI18N
         mnDataMerk.setText("Data Merk");
+        mnDataMerk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDataMerkActionPerformed(evt);
+            }
+        });
         mnProduk.add(mnDataMerk);
 
         jMenuBar2.add(mnProduk);
@@ -279,6 +293,24 @@ public class MenuUtama extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void mnGantiPasswordActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        boolean closable = true;
+        ManajemenAkun manajemenAkun = new ManajemenAkun(null, closable);
+        manajemenAkun.mu = this;
+        manajemenAkun.setVisible(true);
+    } 
+    
+    private void mnLogoutActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        boolean closable = true;
+        ManajemenAkun manajemenAkun = new ManajemenAkun(null, closable);
+        manajemenAkun.mu = this;
+        manajemenAkun.setVisible(true);
+    } 
+    
+    private void mnExitActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        System.exit(0);
+    } 
+    
     private void mnPengaturanSistemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPengaturanSistemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mnPengaturanSistemActionPerformed
@@ -318,6 +350,20 @@ public class MenuUtama extends javax.swing.JFrame {
         restore.mu = this;
         restore.setVisible(true);
     }//GEN-LAST:event_mnRestoreDatabaseActionPerformed
+
+    private void mnDataKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataKategoriActionPerformed
+        boolean closable = true;
+        DataKategori dk = new DataKategori(null, closable);
+        dk.mu = this;
+        dk.setVisible(true);
+    }//GEN-LAST:event_mnDataKategoriActionPerformed
+
+    private void mnDataMerkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataMerkActionPerformed
+        boolean closable = true;
+        DataMerk dm = new DataMerk(null, closable);
+        dm.mu = this;
+        dm.setVisible(true);
+    }//GEN-LAST:event_mnDataMerkActionPerformed
 
     /**
      * @param args the command line arguments
