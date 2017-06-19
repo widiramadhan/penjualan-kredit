@@ -35,6 +35,28 @@
             </Property>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mnDataKreditur">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Data Kreditur"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Data Pekerjaan"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jMenuItem2"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jMenuItem3"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnProduk">
           <Properties>
@@ -52,6 +74,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnDataProduk">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/penjualan/kredit/gambar/product.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Data Produk"/>
               </Properties>
               <Events>
@@ -106,6 +131,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnPembayaranKredit">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/penjualan/kredit/gambar/notes.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pembayaran Kredit"/>
               </Properties>
             </MenuItem>
@@ -146,14 +174,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnManajemenHakAksesActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mnHakPenggunaAkun">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/penjualan/kredit/gambar/padlock.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Hak Pengguna Akun"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -253,6 +273,9 @@
             </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="mnTentangToko">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/penjualan/kredit/gambar/store.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Tentang Toko"/>
               </Properties>
               <Events>
@@ -261,6 +284,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnTentangAplikasi">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/penjualan/kredit/gambar/info.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Tentang Aplikasi"/>
               </Properties>
             </MenuItem>

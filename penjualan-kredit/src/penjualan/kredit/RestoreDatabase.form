@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.JFileChooser" name="jFileChooser1">
     </Component>
@@ -57,7 +57,7 @@
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jLabel6" alignment="0" min="-2" pref="434" max="-2" attributes="0"/>
-                      <Component id="jButton1" alignment="1" min="-2" pref="119" max="-2" attributes="0"/>
+                      <Component id="bexit" alignment="1" min="-2" pref="119" max="-2" attributes="0"/>
                       <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
                       <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -74,7 +74,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="42" max="-2" attributes="0"/>
+                  <Component id="bexit" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -111,9 +111,9 @@
                           <Group type="102" attributes="0">
                               <Component id="trestore" min="-2" pref="243" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="bbcakup" min="-2" max="-2" attributes="0"/>
+                              <Component id="brestore" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="bpilihbackup" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnpilihrestore" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
                   </Group>
@@ -125,13 +125,13 @@
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bpilihbackup" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnpilihrestore" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="trestore" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bbcakup" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="brestore" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="19" max="32767" attributes="0"/>
                   </Group>
@@ -151,7 +151,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="trestore">
             </Component>
-            <Component class="javax.swing.JButton" name="bpilihbackup">
+            <Component class="javax.swing.JButton" name="btnpilihrestore">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/penjualan/kredit/gambar/folder.png"/>
@@ -159,18 +159,18 @@
                 <Property name="text" type="java.lang.String" value="Pilih Berkas"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bpilihbackupActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnpilihrestoreActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="bbcakup">
+            <Component class="javax.swing.JButton" name="brestore">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/penjualan/kredit/gambar/restore_db.png"/>
+                  <Image iconType="3" name="/penjualan/kredit/gambar/backup_db.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Pulihkan"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bbcakupActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="brestoreActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -184,7 +184,7 @@
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="bexit">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/penjualan/kredit/gambar/logout.png"/>
@@ -192,7 +192,7 @@
             <Property name="text" type="java.lang.String" value="Tutup"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bexitActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

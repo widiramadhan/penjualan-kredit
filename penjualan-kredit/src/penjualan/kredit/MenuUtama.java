@@ -60,6 +60,25 @@ public class MenuUtama extends javax.swing.JFrame {
                 jMenu1.add(mnGantiPassword);
                 jMenu1.add(mnLogout);
                 jMenu1.add(mnExit);
+                
+                //add action
+                mnGantiPassword.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    mnGantiPasswordActionPerformed(evt);
+                }
+                });
+                
+                mnLogout.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    mnLogoutActionPerformed(evt);
+                }
+                });
+                
+                mnExit.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    mnExitActionPerformed(evt);
+                }
+                });
             }
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, e);
@@ -80,6 +99,10 @@ public class MenuUtama extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuBar2 = new javax.swing.JMenuBar();
         mnFile = new javax.swing.JMenu();
+        mnDataKreditur = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         mnProduk = new javax.swing.JMenu();
         mnDataProduk = new javax.swing.JMenuItem();
         mnDataKategori = new javax.swing.JMenuItem();
@@ -90,7 +113,6 @@ public class MenuUtama extends javax.swing.JFrame {
         mnAkun = new javax.swing.JMenu();
         mnManajemenAkun = new javax.swing.JMenuItem();
         mnManajemenHakAkses = new javax.swing.JMenuItem();
-        mnHakPenggunaAkun = new javax.swing.JMenuItem();
         mnLaporan = new javax.swing.JMenu();
         mnLaporanDataProduk = new javax.swing.JMenuItem();
         mnLaporanDataTransaksi = new javax.swing.JMenuItem();
@@ -119,6 +141,19 @@ public class MenuUtama extends javax.swing.JFrame {
         mnFile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mnFile.setMargin(new java.awt.Insets(10, 5, 5, 5));
         mnFile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        mnDataKreditur.setText("Data Kreditur");
+        mnFile.add(mnDataKreditur);
+
+        jMenuItem1.setText("Data Pekerjaan");
+        mnFile.add(jMenuItem1);
+
+        jMenuItem2.setText("jMenuItem2");
+        mnFile.add(jMenuItem2);
+
+        jMenuItem3.setText("jMenuItem3");
+        mnFile.add(jMenuItem3);
+
         jMenuBar2.add(mnFile);
 
         mnProduk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/cart.png"))); // NOI18N
@@ -128,6 +163,7 @@ public class MenuUtama extends javax.swing.JFrame {
         mnProduk.setMargin(new java.awt.Insets(10, 5, 5, 5));
         mnProduk.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
+        mnDataProduk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/product.png"))); // NOI18N
         mnDataProduk.setText("Data Produk");
         mnDataProduk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,6 +203,7 @@ public class MenuUtama extends javax.swing.JFrame {
         mnTransaksiKredit.setText("Transaksi Kredit");
         mnTransaksi.add(mnTransaksiKredit);
 
+        mnPembayaranKredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/notes.png"))); // NOI18N
         mnPembayaranKredit.setText("Pembayaran Kredit");
         mnTransaksi.add(mnPembayaranKredit);
 
@@ -196,10 +233,6 @@ public class MenuUtama extends javax.swing.JFrame {
             }
         });
         mnAkun.add(mnManajemenHakAkses);
-
-        mnHakPenggunaAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/padlock.png"))); // NOI18N
-        mnHakPenggunaAkun.setText("Hak Pengguna Akun");
-        mnAkun.add(mnHakPenggunaAkun);
 
         jMenuBar2.add(mnAkun);
 
@@ -264,6 +297,7 @@ public class MenuUtama extends javax.swing.JFrame {
 
         mnPengaturan.add(mnDatabase);
 
+        mnTentangToko.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/store.png"))); // NOI18N
         mnTentangToko.setText("Tentang Toko");
         mnTentangToko.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,6 +306,7 @@ public class MenuUtama extends javax.swing.JFrame {
         });
         mnPengaturan.add(mnTentangToko);
 
+        mnTentangAplikasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/info.png"))); // NOI18N
         mnTentangAplikasi.setText("Tentang Aplikasi");
         mnPengaturan.add(mnTentangAplikasi);
 
@@ -295,9 +330,9 @@ public class MenuUtama extends javax.swing.JFrame {
 
     private void mnGantiPasswordActionPerformed(java.awt.event.ActionEvent evt) {                                                
         boolean closable = true;
-        ManajemenAkun manajemenAkun = new ManajemenAkun(null, closable);
-        manajemenAkun.mu = this;
-        manajemenAkun.setVisible(true);
+        GantiPassword gp = new GantiPassword(null, closable);
+        gp.mu = this;
+        gp.setVisible(true);
     } 
     
     private void mnLogoutActionPerformed(java.awt.event.ActionEvent evt) {                                                
@@ -411,14 +446,17 @@ public class MenuUtama extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu mnAkun;
     private javax.swing.JMenuItem mnBackupDatabase;
     private javax.swing.JMenuItem mnDataKategori;
+    private javax.swing.JMenuItem mnDataKreditur;
     private javax.swing.JMenuItem mnDataMerk;
     private javax.swing.JMenuItem mnDataProduk;
     private javax.swing.JMenu mnDatabase;
     private javax.swing.JMenu mnFile;
-    private javax.swing.JMenuItem mnHakPenggunaAkun;
     private javax.swing.JMenu mnLaporan;
     private javax.swing.JMenuItem mnLaporanDataProduk;
     private javax.swing.JMenuItem mnLaporanDataReturProduk;

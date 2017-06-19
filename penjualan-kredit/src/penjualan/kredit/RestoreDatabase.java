@@ -39,15 +39,14 @@ public class RestoreDatabase extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         trestore = new javax.swing.JTextField();
-        bpilihbackup = new javax.swing.JButton();
-        bbcakup = new javax.swing.JButton();
+        btnpilihrestore = new javax.swing.JButton();
+        brestore = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        bexit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
@@ -59,19 +58,19 @@ public class RestoreDatabase extends javax.swing.JDialog {
 
         jLabel4.setText("Lokasi Pemulihan :");
 
-        bpilihbackup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/folder.png"))); // NOI18N
-        bpilihbackup.setText("Pilih Berkas");
-        bpilihbackup.addActionListener(new java.awt.event.ActionListener() {
+        btnpilihrestore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/folder.png"))); // NOI18N
+        btnpilihrestore.setText("Pilih Berkas");
+        btnpilihrestore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bpilihbackupActionPerformed(evt);
+                btnpilihrestoreActionPerformed(evt);
             }
         });
 
-        bbcakup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/restore_db.png"))); // NOI18N
-        bbcakup.setText("Pulihkan");
-        bbcakup.addActionListener(new java.awt.event.ActionListener() {
+        brestore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/backup_db.png"))); // NOI18N
+        brestore.setText("Pulihkan");
+        brestore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bbcakupActionPerformed(evt);
+                brestoreActionPerformed(evt);
             }
         });
 
@@ -89,8 +88,8 @@ public class RestoreDatabase extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(trestore, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bbcakup))
-                    .addComponent(bpilihbackup))
+                        .addComponent(brestore))
+                    .addComponent(btnpilihrestore))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -99,22 +98,22 @@ public class RestoreDatabase extends javax.swing.JDialog {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(bpilihbackup))
+                    .addComponent(btnpilihrestore))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(trestore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bbcakup))
+                    .addComponent(brestore))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/restore_database.png"))); // NOI18N
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/logout.png"))); // NOI18N
-        jButton1.setText("Tutup");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bexit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/logout.png"))); // NOI18N
+        bexit.setText("Tutup");
+        bexit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bexitActionPerformed(evt);
             }
         });
 
@@ -126,7 +125,7 @@ public class RestoreDatabase extends javax.swing.JDialog {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bexit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1))
                 .addContainerGap(42, Short.MAX_VALUE))
@@ -140,7 +139,7 @@ public class RestoreDatabase extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bexit, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -150,29 +149,34 @@ public class RestoreDatabase extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bexitActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_bexitActionPerformed
 
-    private void bpilihbackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bpilihbackupActionPerformed
+    private void btnpilihrestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpilihrestoreActionPerformed
         // TODO add your handling code here:
         FileNameExtensionFilter filter = new FileNameExtensionFilter("sql file", "sql");
         jFileChooser1.setFileFilter(filter);
-        int returnVal = jFileChooser1.showSaveDialog(this);
+        int returnVal = jFileChooser1.showOpenDialog(this);
         if(returnVal == jFileChooser1.APPROVE_OPTION) {
-            trestore.setText(jFileChooser1.getSelectedFile().getPath()+".sql");
+           trestore.setText(jFileChooser1.getSelectedFile().getPath());
         }
-    }//GEN-LAST:event_bpilihbackupActionPerformed
+    }//GEN-LAST:event_btnpilihrestoreActionPerformed
 
-    private void bbcakupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbcakupActionPerformed
-        // TODO add your handling code here:
+    private void brestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brestoreActionPerformed
         try{
             if(trestore.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Pilih lokasi pemulihan terlebih dahulu");
             } else{
-                Process runtimeProcess = Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqldump -hlocalhost -uroot penjualan-kredit -r "+"\""+trestore.getText()+"\"");
+                String database="penjualan-kredit";
+                String user="root";
+                String password="";               
+
+                String[] kata = new String[]{"c:\\xampp\\mysql\\bin\\mysql", database, "-u" + user, "-e", " source "+trestore.getText()};
+                Process runtimeProcess=Runtime.getRuntime().exec(kata);
                 int prosesSukses=runtimeProcess.waitFor();
+
                 if(prosesSukses==0){
                     JOptionPane.showMessageDialog(null, "Pemulihan database Sukses");
                 } else {
@@ -182,7 +186,7 @@ public class RestoreDatabase extends javax.swing.JDialog {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,"Pemulihan database gagal, Periksa kembali");
         }
-    }//GEN-LAST:event_bbcakupActionPerformed
+    }//GEN-LAST:event_brestoreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,7 +199,7 @@ public class RestoreDatabase extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -209,12 +213,6 @@ public class RestoreDatabase extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(RestoreDatabase.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -235,9 +233,9 @@ public class RestoreDatabase extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bbcakup;
-    private javax.swing.JButton bpilihbackup;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bexit;
+    private javax.swing.JButton brestore;
+    private javax.swing.JButton btnpilihrestore;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

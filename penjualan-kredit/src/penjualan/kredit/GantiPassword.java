@@ -21,33 +21,65 @@ import java.util.logging.*;
  *
  * @author Widi Ramadhan
  */
-public class GantiPasswowrd extends javax.swing.JDialog {
+public class GantiPassword extends javax.swing.JDialog {
     Koneksi kon = new Koneksi();
     public MenuUtama mu = null;
     
 
-    public GantiPasswowrd(java.awt.Frame parent, boolean modal) {
+    public GantiPassword(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         kon.setKoneksi();
-         txtUsername.setVisible(false);
+        cekLogin();
+        txtUsername.setVisible(false);
     }
     private void Bersih(){
         txtlama.setText("");
-            txtbaru.setText("");
-            txtkonfirm.setText("");
+        txtbaru.setText("");
+        txtkonfirm.setText("");
     }
-private void UpdateData(){
-            try{
-                String sql="Update pengguna set password='"+txtbaru.getText()+"' where username='"+txtUsername.getText()+"'";
+    
+    public void cekLogin(){
+        try{
+            String sql="select * from pengguna where status='0'";
+            kon.rs=kon.st.executeQuery(sql);
+            
+            if(kon.rs.next()){
+                String username = kon.rs.getString("username");
+                txtUsername.setText(username);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void ProsesUpdate(){
+        try{
+            String cek = "select * from pengguna where password='"+txtlama.getText()+"' AND status='0'";
+            kon.rs=kon.st.executeQuery(cek);
+            
+            String pwBaru = txtbaru.getText();
+            String pwKonfirm = txtkonfirm.getText();
+            
+            if(txtlama.getText().isEmpty() || txtbaru.getText().isEmpty() || txtkonfirm.getText().isEmpty()){
+               JOptionPane.showMessageDialog(null,"Harap Lengkapi Data");
+            }else if(!kon.rs.next()){
+               JOptionPane.showMessageDialog(null,"Password lama anda salah !");
+               Bersih();
+               txtlama.requestFocus();
+            }else if(!pwBaru.equals(pwKonfirm)){
+               JOptionPane.showMessageDialog(null,"Password Baru dan Konfirmasi Password Tidak Sesuai");
+               Bersih();
+            }else{
+                String sql="update pengguna set password='"+txtbaru.getText()+"' where username='"+txtUsername.getText()+"'";
                 kon.st.executeUpdate(sql);
                 JOptionPane.showMessageDialog(null,"Data berhasil diupdate");
                 Bersih();
             }
-            catch(SQLException e){
-                JOptionPane.showMessageDialog(null,e);
-            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null,e);
         }
+    }
   
 
     
@@ -61,8 +93,6 @@ private void UpdateData(){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnEdit2 = new javax.swing.JButton();
-        btnKeluar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -75,22 +105,6 @@ private void UpdateData(){
         txtkonfirm = new javax.swing.JPasswordField();
         btnUpdate = new javax.swing.JButton();
         txtUsername = new javax.swing.JTextField();
-
-        btnEdit2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/edit.png"))); // NOI18N
-        btnEdit2.setText("Edit");
-        btnEdit2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEdit2ActionPerformed(evt);
-            }
-        });
-
-        btnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/logout.png"))); // NOI18N
-        btnKeluar.setText("Keluar");
-        btnKeluar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnKeluarActionPerformed(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -126,23 +140,22 @@ private void UpdateData(){
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(68, 68, 68)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnUpdate)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnKeluar1))
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtkonfirm, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtbaru, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtlama, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnUpdate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnKeluar1))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addComponent(txtlama)
+                    .addComponent(txtbaru)
+                    .addComponent(txtkonfirm))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,8 +175,8 @@ private void UpdateData(){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtkonfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(txtkonfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnKeluar1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,61 +186,17 @@ private void UpdateData(){
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(695, 395));
+        setSize(new java.awt.Dimension(490, 395));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEdit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit2ActionPerformed
-        btnUpdate.setText("Update");
-        btnKeluar.setText("Batal");
-        btnUpdate.setEnabled(true);
-    }//GEN-LAST:event_btnEdit2ActionPerformed
-
-    private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
-        String keluar=btnKeluar.getText();
-        if(keluar.equals("Batal")){
-            Bersih();
-            btnUpdate.setText("Simpan");
-            btnKeluar.setText("Keluar");
-            btnUpdate.setEnabled(false);
-           }else{
-            this.dispose();
-        }
-    }//GEN-LAST:event_btnKeluarActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        ProsesUpdate();
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnKeluar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluar1ActionPerformed
-        String keluar=btnKeluar.getText();
-        if(keluar.equals("Batal")){
-            Bersih();
-            btnUpdate.setText("Simpan");
-            btnKeluar.setText("Keluar");
-            btnUpdate.setEnabled(false);
-            }else{
-            this.dispose();
-        }
+        System.exit(0);
     }//GEN-LAST:event_btnKeluar1ActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        String update=btnUpdate.getText();
-        if(update.equals("Simpan")){
-            if (txtlama.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Lengkapi Data", "Konfirmasi", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                SimpanData();
-                Bersih();
-                btnUpdate.setText("Simpan");
-                btnKeluar.setText("Keluar");
-                btnUpdate.setEnabled(false);
-                }
-        }else{
-            UpdateData();
-            Bersih();
-            NonAktif();
-            btnUpdate.setText("Simpan");
-            btnKeluar.setText("Keluar");
-            btnUpdate.setEnabled(false);
-        }
-    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,14 +215,46 @@ private void UpdateData(){
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GantiPasswowrd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GantiPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GantiPasswowrd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GantiPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GantiPasswowrd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GantiPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GantiPasswowrd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GantiPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -290,7 +291,7 @@ private void UpdateData(){
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               GantiPasswowrd dialog = new GantiPasswowrd(new javax.swing.JFrame(), true);
+               GantiPassword dialog = new GantiPassword(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -304,10 +305,6 @@ private void UpdateData(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnEdit1;
-    private javax.swing.JButton btnEdit2;
-    private javax.swing.JButton btnKeluar;
     private javax.swing.JButton btnKeluar1;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
