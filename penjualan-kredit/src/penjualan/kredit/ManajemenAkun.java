@@ -123,7 +123,7 @@ public class ManajemenAkun extends javax.swing.JDialog {
     
     private void SimpanData(){
         try{
-            String sql="insert into pengguna values('"+txtIdPengguna.getText()+"','"+txtNamaPengguna.getText()+"','"+txtEmail.getText()+"','"+txtUsername.getText()+"','"+txtPassword.getText()+"','"+simpanHakAkses()+"','','1')";
+            String sql="insert into pengguna values('"+txtIdPengguna.getText()+"','"+txtNamaPengguna.getText()+"','"+txtEmail.getText()+"','"+txtUsername.getText()+"','"+txtPassword.getText()+"','"+simpanHakAkses()+"','1')";
             kon.st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null,"Data berhasil disimpan");
             Bersih();

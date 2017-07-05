@@ -28,19 +28,23 @@ public class MenuUtama extends javax.swing.JFrame {
         initComponents();
         kon.setKoneksi();
         cekLogin();
+        AksesLevel();
+        lblHakAkses.setVisible(false);
     }
     
     public void cekLogin(){
         try{
-            String sql="select * from pengguna where status='0'";
+            String sql="select * from pengguna A, hak_akses B where A.id_hak_akses=B.id_hak_akses AND status='0'";
             kon.rs=kon.st.executeQuery(sql);
             
             if (kon.rs.next()){
                 String nama = kon.rs.getString("nama");
+                String hak = kon.rs.getString("nama_hak_akses");
                 
                 //set menu di kiri
                 jMenuBar2.add(Box.createHorizontalGlue()); 
                 jMenuBar2.add(jMenu1);
+                lblHakAkses.setText(hak);
                 
                 //custom menu
                 jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/user.png"))); // NOI18N
@@ -84,7 +88,16 @@ public class MenuUtama extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-
+    
+    public void AksesLevel(){
+        String hak_akses = lblHakAkses.getText();
+        if(hak_akses.equals("User")){
+            mnManajemenAkun.setEnabled(false);
+        }else if(hak_akses.equals("Support")){
+            
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,6 +110,7 @@ public class MenuUtama extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        lblHakAkses = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         mnFile = new javax.swing.JMenu();
         mnDataKreditur = new javax.swing.JMenuItem();
@@ -134,6 +148,8 @@ public class MenuUtama extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Halaman Utama - Aplikasi Penjualan Krdit CV. Takaidetama Indonesia");
+
+        lblHakAkses.setText("Hak Akses");
 
         mnFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/home.png"))); // NOI18N
         mnFile.setText("File");
@@ -318,14 +334,21 @@ public class MenuUtama extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 564, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(lblHakAkses)
+                .addContainerGap(482, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 233, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(lblHakAkses)
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(580, 340));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnGantiPasswordActionPerformed(java.awt.event.ActionEvent evt) {                                                
@@ -336,10 +359,10 @@ public class MenuUtama extends javax.swing.JFrame {
     } 
     
     private void mnLogoutActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        boolean closable = true;
-        ManajemenAkun manajemenAkun = new ManajemenAkun(null, closable);
-        manajemenAkun.mu = this;
-        manajemenAkun.setVisible(true);
+        Login login = new Login();
+        this.setVisible(false);
+        sessionUtil.doLogout();
+        login.setVisible(true);
     } 
     
     private void mnExitActionPerformed(java.awt.event.ActionEvent evt) {                                                
@@ -449,6 +472,7 @@ public class MenuUtama extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JLabel lblHakAkses;
     private javax.swing.JMenu mnAkun;
     private javax.swing.JMenuItem mnBackupDatabase;
     private javax.swing.JMenuItem mnDataKategori;

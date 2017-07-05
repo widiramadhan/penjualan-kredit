@@ -40,6 +40,15 @@ public class SessionUtil {
         }
     }
     
+    public void doLogout() {
+        try{
+            String status="update pengguna set status='1'";
+            kon.st.executeUpdate(status);
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
     public void getSession(){
         try{
             String sql="select * from pengguna A, hak_akses B where A.id_hak_akses=B.id_hak_akses AND A.status='0'";

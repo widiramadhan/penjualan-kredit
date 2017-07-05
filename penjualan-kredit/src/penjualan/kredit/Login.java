@@ -17,7 +17,7 @@ public class Login extends javax.swing.JFrame {
         kon.setKoneksi();
         setSize(lebar,tinggi);
         setResizable(false);
-        ImageIcon ico = new ImageIcon("src/penjualan/kredit/gambar/logo.png");
+        ImageIcon ico = new ImageIcon("src/penjualan/kredit/gambar/logo.jpg");
         setIconImage(ico.getImage());
         
     }
