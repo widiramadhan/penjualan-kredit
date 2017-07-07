@@ -334,17 +334,17 @@ public class MenuUtama extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(506, Short.MAX_VALUE)
                 .addComponent(lblHakAkses)
-                .addContainerGap(482, Short.MAX_VALUE))
+                .addGap(9, 9, 9))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(217, Short.MAX_VALUE)
                 .addComponent(lblHakAkses)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addGap(2, 2, 2))
         );
 
         setSize(new java.awt.Dimension(580, 340));
