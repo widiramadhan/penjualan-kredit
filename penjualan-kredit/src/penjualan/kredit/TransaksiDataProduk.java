@@ -21,23 +21,23 @@ import java.util.logging.*;
  *
  * @author Widi Ramadhan
  */
-public class TransaksiDataKreditur extends javax.swing.JDialog {
+public class TransaksiDataProduk extends javax.swing.JDialog {
     Koneksi kon = new Koneksi();
     public Transaksi trans = null;
-    private Object [][] datakreditur=null;
-    private String[]label={"Nama Lengkap","Nomor Identitas","Pekerjaan","Email","Nomor Telepon"};
+    private Object [][] dataproduk=null;
+    private String[]label={"Kode Produk","Nama Produk","Kategori","Merk","Deskripsi","Harga"};
 
-    public TransaksiDataKreditur(java.awt.Frame parent, boolean modal) {
+    public TransaksiDataProduk(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         kon.setKoneksi();
         setSize(670,400);
-        BacaTabelKreditur();
+        BacaTabelProduk();
     }
     
-    public void BacaTabelKreditur(){
+    public void BacaTabelProduk(){
         try{
-            String sql="select * from kreditur A, data_pekerjaan B WHERE A.id_kreditur=B.id_kreditur";
+            String sql="Select * From produk A, kategori B, merk C where A.id_kategori=B.id_kategori AND A.id_merk=C.id_merk order by A.nama_produk";
             kon.rs=kon.st.executeQuery(sql);
             ResultSetMetaData m=kon.rs.getMetaData();
             int kolom=m.getColumnCount();
@@ -45,18 +45,19 @@ public class TransaksiDataKreditur extends javax.swing.JDialog {
             while(kon.rs.next()){
                 baris=kon.rs.getRow();
             }
-            datakreditur=new Object[baris][kolom];
+            dataproduk=new Object[baris][kolom];
             int x=0;
             kon.rs.beforeFirst();
             while(kon.rs.next()){
-                datakreditur[x][0]=kon.rs.getString("nama_lengkap_kreditur");
-                datakreditur[x][1]=kon.rs.getString("no_identitas");
-                datakreditur[x][2]=kon.rs.getString("nama_pekerjaan");
-                datakreditur[x][3]=kon.rs.getString("email");
-                datakreditur[x][4]=kon.rs.getString("no_telp");
+                dataproduk[x][0]=kon.rs.getString("kode_produk");
+                dataproduk[x][1]=kon.rs.getString("nama_produk");
+                dataproduk[x][2]=kon.rs.getString("nama_kategori");
+                dataproduk[x][3]=kon.rs.getString("nama_merk");
+                dataproduk[x][4]=kon.rs.getString("Deskripsi");
+                dataproduk[x][5]=kon.rs.getString("Harga");
                 x++;
             }
-            tabel_kreditur.setModel(new DefaultTableModel(datakreditur,label));
+            tabel_produk.setModel(new DefaultTableModel(dataproduk,label));
         }
         catch(SQLException e){
             JOptionPane.showMessageDialog(null, e);
@@ -66,7 +67,7 @@ public class TransaksiDataKreditur extends javax.swing.JDialog {
     
     private void Pencarian(){
         try{
-            String sql="select * from kreditur A, data_pekerjaan B WHERE B.id_kreditur=A.id_kreditur AND A.nama_lengkap_kreditur like '%" +tcari.getText()+ "%' ";
+            String sql="produk A, kategori B, merk C where A.id_kategori=B.id_kategori AND A.id_merk=C.id_merk AND A.nama_produk like '%" +tcari.getText()+ "%' ";
             kon.rs=kon.st.executeQuery(sql);
             ResultSetMetaData m=kon.rs.getMetaData();
             int kolom=m.getColumnCount();
@@ -74,18 +75,19 @@ public class TransaksiDataKreditur extends javax.swing.JDialog {
             while(kon.rs.next()){
                 baris=kon.rs.getRow();
             }
-            datakreditur=new Object[baris][kolom];
+            dataproduk=new Object[baris][kolom];
             int x=0;
             kon.rs.beforeFirst();
             while(kon.rs.next()){
-                datakreditur[x][0]=kon.rs.getString("nama_lengkap_kreditur");
-                datakreditur[x][1]=kon.rs.getString("no_identitas");
-                datakreditur[x][2]=kon.rs.getString("nama_pekerjaan");
-                datakreditur[x][3]=kon.rs.getString("email");
-                datakreditur[x][4]=kon.rs.getString("no_telp");
+                dataproduk[x][0]=kon.rs.getString("kode_produk");
+                dataproduk[x][1]=kon.rs.getString("nama_produk");
+                dataproduk[x][2]=kon.rs.getString("nama_kategori");
+                dataproduk[x][3]=kon.rs.getString("nama_merk");
+                dataproduk[x][4]=kon.rs.getString("Deskripsi");
+                dataproduk[x][5]=kon.rs.getString("Harga");
                 x++;
             }
-            tabel_kreditur.setModel(new DefaultTableModel(datakreditur,label));
+            tabel_produk.setModel(new DefaultTableModel(dataproduk,label));
         }
         catch(SQLException e){
             JOptionPane.showMessageDialog(null, e);
@@ -110,7 +112,7 @@ public class TransaksiDataKreditur extends javax.swing.JDialog {
         bCari = new javax.swing.JButton();
         bAll = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabel_kreditur = new javax.swing.JTable();
+        tabel_produk = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
 
@@ -145,7 +147,7 @@ public class TransaksiDataKreditur extends javax.swing.JDialog {
             }
         });
 
-        tabel_kreditur.setModel(new javax.swing.table.DefaultTableModel(
+        tabel_produk.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -156,12 +158,12 @@ public class TransaksiDataKreditur extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tabel_kreditur.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabel_produk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabel_krediturMouseClicked(evt);
+                tabel_produkMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tabel_kreditur);
+        jScrollPane2.setViewportView(tabel_produk);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/manajemen_akun.png"))); // NOI18N
 
@@ -188,9 +190,9 @@ public class TransaksiDataKreditur extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
                 .addGap(10, 10, 10)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -224,15 +226,15 @@ public class TransaksiDataKreditur extends javax.swing.JDialog {
 
     private void bAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAllActionPerformed
         // TODO add your handling code here:
-        BacaTabelKreditur();
+        BacaTabelProduk();
     }//GEN-LAST:event_bAllActionPerformed
 
-    private void tabel_krediturMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_krediturMouseClicked
+    private void tabel_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_produkMouseClicked
         // TODO add your handling code here:
-        int tblkreditur = tabel_kreditur.getSelectedRow();
-        trans.namaKreditur = tabel_kreditur.getValueAt(tblkreditur, 0).toString();
+        int tblProduk = tabel_produk.getSelectedRow();
+        trans.kodeProduk = tabel_produk.getValueAt(tblProduk, 0).toString();
         this.dispose();
-    }//GEN-LAST:event_tabel_krediturMouseClicked
+    }//GEN-LAST:event_tabel_produkMouseClicked
 
     private void tcariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tcariKeyTyped
        Pencarian();
@@ -255,13 +257,13 @@ public class TransaksiDataKreditur extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TransaksiDataKreditur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransaksiDataProduk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TransaksiDataKreditur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransaksiDataProduk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TransaksiDataKreditur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransaksiDataProduk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TransaksiDataKreditur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransaksiDataProduk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -283,7 +285,7 @@ public class TransaksiDataKreditur extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               TransaksiDataKreditur dialog = new TransaksiDataKreditur(new javax.swing.JFrame(), true);
+               TransaksiDataProduk dialog = new TransaksiDataProduk(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -304,7 +306,7 @@ public class TransaksiDataKreditur extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    public javax.swing.JTable tabel_kreditur;
+    public javax.swing.JTable tabel_produk;
     private javax.swing.JTextField tcari;
     // End of variables declaration//GEN-END:variables
 }

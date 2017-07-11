@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.io.*;
+import java.text.*;
 import java.util.logging.*;
 
 /**
@@ -28,8 +29,18 @@ public class Transaksi extends javax.swing.JDialog {
     public Transaksi(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        kon.setKoneksi(); 
+        kon.setKoneksi();
+        lblTanggal1.setVisible(false);
+        ceklogin();
+        nonAktif();
+        lblIdPengguna.setVisible(false);
+        txtIdKreditur.setVisible(false);
+        
+        Date skrg = new Date();
+        SimpleDateFormat notrans=new SimpleDateFormat("ddMMyyyyHms");
+        txtNoTransaksi.setText(notrans.format(skrg));
     }
+    
     
     public String namaKreditur;
 
@@ -37,16 +48,75 @@ public class Transaksi extends javax.swing.JDialog {
         return namaKreditur;
     }
     
-    public void setKreditur(){
+    public String kodeProduk;
+
+    public String getKodeProduk() {
+        return kodeProduk;
+    }
+    
+    public void nonAktif(){
+        txtEmail.setEnabled(false);
+        txtHarga.setEnabled(false);
+        txtKategori.setEnabled(false);
+        txtMerk.setEnabled(false);
+        txtNamaProduk.setEnabled(false);
+        txtNoTransaksi.setEnabled(false);
+        txtNomorIdentitas.setEnabled(false);
+        txtNomorTelepon.setEnabled(false);
+        txtPekerjaan.setEnabled(false);
+        rtiga.setEnabled(false);
+        renam.setEnabled(false);
+        rsetahun.setEnabled(false);
+    }
+    
+     public void bersih(){
+        txtEmail.setText("");
+        txtHarga.setText("");
+        txtKategori.setText("");
+        txtMerk.setText("");
+        txtNamaProduk.setText("");
+        txtNoTransaksi.setText("");
+        txtNomorIdentitas.setText("");
+        txtNomorTelepon.setText("");
+        txtPekerjaan.setText("");
+        buttonGroup1.clearSelection();
+    }
+    
+    public void hanyaAngka(java.awt.event.KeyEvent evt){
+        char a = evt.getKeyChar();
+        if(!((Character.isDigit(a) || (a==KeyEvent.VK_BACK_SPACE) || (a==KeyEvent.VK_DELETE))))
+        {
+            evt.consume();
+        }
+    }
+    
+    private void ceklogin(){
         try{
-            String sql="SELECT * FROM kreditur A, data_pekerjaan B WHERE B.id_kreditur=A.id_kreditur WHERE A.nama_lengkap_kreditur='"+txtNamaKreditur.getText()+"'";
+            String sql="select * from pengguna where status='0'";
             kon.rs=kon.st.executeQuery(sql);
             if (kon.rs.next()){
+                String id=kon.rs.getString("id_pengguna");
+                String nama=kon.rs.getString("nama");
+                lblUser.setText(nama);
+                lblIdPengguna.setText(id);
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void setKreditur(){
+        try{
+            String sql="SELECT * FROM kreditur A, data_pekerjaan B WHERE B.id_kreditur=A.id_kreditur AND nama_lengkap_kreditur='"+txtNamaKreditur.getText()+"'";
+            kon.rs=kon.st.executeQuery(sql);
+            if (kon.rs.next()){
+                String idKreditur=kon.rs.getString("id_kreditur");
                 String nama=kon.rs.getString("nama_lengkap_kreditur");
                 String noIdentitas=kon.rs.getString("no_identitas");
                 String pekerjaan=kon.rs.getString("nama_pekerjaan");
                 String email=kon.rs.getString("email");
                 String no_telp=kon.rs.getString("no_telp");
+                txtIdKreditur.setText(idKreditur);
                 txtNamaKreditur.setText(nama);
                 txtNomorIdentitas.setText(noIdentitas);
                 txtPekerjaan.setText(pekerjaan);
@@ -68,6 +138,59 @@ public class Transaksi extends javax.swing.JDialog {
         }
     }
 
+    public void setKodeProduk(){
+        try{
+            String sql="SELECT * FROM produk A, kategori B, merk C WHERE A.id_kategori=B.id_kategori AND A.id_merk=C.id_merk AND kode_produk='"+txtKodeProduk.getText()+"'";
+            kon.rs=kon.st.executeQuery(sql);
+            if (kon.rs.next()){
+                String kodeProduk=kon.rs.getString("kode_produk");
+                String namaProduk=kon.rs.getString("nama_produk");
+                String kategori=kon.rs.getString("nama_kategori");
+                String merk=kon.rs.getString("nama_merk");
+                String harga=kon.rs.getString("harga");
+                txtKodeProduk.setText(kodeProduk);
+                txtNamaProduk.setText(namaProduk);
+                txtKategori.setText(kategori);
+                txtMerk.setText(merk);
+                txtHarga.setText(harga);
+                txtKodeProduk.setEnabled(false);
+                btnCariProduk.setEnabled(false);
+            }else{
+                JOptionPane.showMessageDialog(this,"Produk yang anda cari tidak terdaftar","Informasi", JOptionPane.INFORMATION_MESSAGE);
+                txtKodeProduk.setText("");
+                txtNamaProduk.setText("");
+                txtKategori.setText("");
+                txtMerk.setText("");
+                txtHarga.setText("");
+                txtKodeProduk.requestFocus();
+            }
+        }catch(SQLException error){
+            JOptionPane.showMessageDialog(null, error);
+        }
+    }
+    
+    public void SimpanData(){
+        try{
+            String tenor=null;
+            if(rtiga.isSelected()){
+                tenor="3";
+            }else if(renam.isSelected()){ 
+                tenor="6";
+            }else if(rsetahun.isSelected()){ 
+                tenor="12";
+            }else{
+                tenor="0";
+            }
+            float angsuran = Float.parseFloat(lblAngsuran.getText());
+            float total = angsuran*(Float.parseFloat(tenor));
+            
+            String simpan="insert into transaksi values('"+txtNoTransaksi.getText()+"','"+lblUser.getText()+"','"+txtIdKreditur.getText()+"','"+txtKodeProduk.getText()+"','"+lblTanggal1.getText()+"','"+txtHarga.getText()+"','"+tenor+"','0','"+lblAngsuran.getText()+"','"+total+"')";
+            kon.st.executeUpdate(simpan);
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null,e);
+        }
+    }
     
 
     /**
@@ -79,8 +202,8 @@ public class Transaksi extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -111,12 +234,30 @@ public class Transaksi extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         lblTanggal = new javax.swing.JLabel();
         lblUser = new javax.swing.JLabel();
+        lblTanggal1 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        rtiga = new javax.swing.JRadioButton();
+        renam = new javax.swing.JRadioButton();
+        rsetahun = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        lblAngsuran = new javax.swing.JLabel();
+        btnBatal = new javax.swing.JButton();
+        btnProses = new javax.swing.JButton();
+        btnKeluar = new javax.swing.JButton();
+        txtIdKreditur = new javax.swing.JTextField();
+        lblIdPengguna = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/manajemen_akun.png"))); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Data Kreditur"));
@@ -192,7 +333,7 @@ public class Transaksi extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel19)
                     .addComponent(txtNomorTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -269,7 +410,7 @@ public class Transaksi extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel21)
                     .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel10.setText("Nomor Transaksi");
@@ -278,7 +419,114 @@ public class Transaksi extends javax.swing.JDialog {
 
         lblTanggal.setText("tanggal");
 
-        lblUser.setText("ladmin");
+        lblUser.setText("lbluser");
+
+        lblTanggal1.setText("tanggal");
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Transaksi"));
+
+        jLabel14.setText("Tenor");
+
+        jLabel15.setText("Angsuran");
+
+        buttonGroup1.add(rtiga);
+        rtiga.setText("3 Bulan");
+        rtiga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rtigaActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(renam);
+        renam.setText("6 Bulan");
+        renam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                renamActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rsetahun);
+        rsetahun.setText("12 Bulan");
+        rsetahun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rsetahunActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jLabel1.setText("Rp.");
+
+        lblAngsuran.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        lblAngsuran.setText("0,000,000");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(rtiga)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(renam)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rsetahun))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAngsuran, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(rtiga)
+                    .addComponent(renam)
+                    .addComponent(rsetahun))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(lblAngsuran, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/remove.png"))); // NOI18N
+        btnBatal.setText("Batal");
+        btnBatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBatalActionPerformed(evt);
+            }
+        });
+
+        btnProses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/credit-card.png"))); // NOI18N
+        btnProses.setText("Proses");
+        btnProses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProsesActionPerformed(evt);
+            }
+        });
+
+        btnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/logout.png"))); // NOI18N
+        btnKeluar.setText("Keluar");
+        btnKeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKeluarActionPerformed(evt);
+            }
+        });
+
+        lblIdPengguna.setText("lbliduser");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/manajemen_akun.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -286,8 +534,8 @@ public class Transaksi extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -298,14 +546,27 @@ public class Transaksi extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(lblTanggal)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblUser))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblUser, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblTanggal1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblIdPengguna, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtIdKreditur, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnProses, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnKeluar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -313,13 +574,17 @@ public class Transaksi extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18))
+                        .addGap(45, 45, 45)
+                        .addComponent(lblTanggal1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblIdPengguna)
+                        .addGap(7, 7, 7)
+                        .addComponent(lblUser)
+                        .addGap(5, 5, 5))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblUser)
-                        .addGap(5, 5, 5)))
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,13 +597,22 @@ public class Transaksi extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBatal)
+                    .addComponent(btnProses)
+                    .addComponent(txtIdKreditur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnKeluar)
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-709)/2, (screenSize.height-477)/2, 709, 477);
+        setBounds((screenSize.width-709)/2, (screenSize.height-620)/2, 709, 620);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNamaKrediturKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNamaKrediturKeyPressed
@@ -363,8 +637,62 @@ public class Transaksi extends javax.swing.JDialog {
     }//GEN-LAST:event_txtKodeProdukKeyPressed
 
     private void btnCariProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariProdukActionPerformed
-        // TODO add your handling code here:
+        boolean closable = true;
+        TransaksiDataProduk dp = new TransaksiDataProduk(null, closable);
+        dp.trans = this;
+        dp.setVisible(true);
+        dp.setResizable(true);
+        txtKodeProduk.setText(kodeProduk);
+        setKodeProduk();
+        
+        rtiga.setEnabled(true);
+        renam.setEnabled(true);
+        rsetahun.setEnabled(true);
     }//GEN-LAST:event_btnCariProdukActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        Date skrg = new Date();
+        SimpleDateFormat tgl=new SimpleDateFormat("dd MMMM yyyy");
+        SimpleDateFormat tgl2=new SimpleDateFormat("yyyy-MM-dd");
+        lblTanggal.setText(tgl.format(skrg));
+        lblTanggal1.setText(tgl2.format(skrg));
+    }//GEN-LAST:event_formWindowOpened
+
+    private void rsetahunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rsetahunActionPerformed
+       float harga = Float.parseFloat(txtHarga.getText());
+       float angsuran = harga/12;
+       lblAngsuran.setText(Float.toString(angsuran));
+    }//GEN-LAST:event_rsetahunActionPerformed
+
+    private void rtigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rtigaActionPerformed
+        float harga = Float.parseFloat(txtHarga.getText());
+        float angsuran = harga/3;
+        lblAngsuran.setText(Float.toString(angsuran));
+    }//GEN-LAST:event_rtigaActionPerformed
+
+    private void renamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_renamActionPerformed
+        float harga = Float.parseFloat(txtHarga.getText());
+       float angsuran = harga/6;
+       lblAngsuran.setText(Float.toString(angsuran));
+    }//GEN-LAST:event_renamActionPerformed
+
+    private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnKeluarActionPerformed
+
+    private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
+        bersih();
+    }//GEN-LAST:event_btnBatalActionPerformed
+
+    private void btnProsesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProsesActionPerformed
+        try{
+            SimpanData();
+            JOptionPane.showMessageDialog(null,"Data berhasil di proses");
+            this.dispose();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+        }
+    }//GEN-LAST:event_btnProsesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -441,14 +769,27 @@ public class Transaksi extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBatal;
     private javax.swing.JButton btnCariKreditur;
     private javax.swing.JButton btnCariProduk;
+    private javax.swing.JButton btnCariProduk1;
+    private javax.swing.JButton btnKeluar;
+    private javax.swing.JButton btnProses;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -459,16 +800,30 @@ public class Transaksi extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblAngsuran;
+    private javax.swing.JLabel lblIdPengguna;
     private javax.swing.JLabel lblTanggal;
+    private javax.swing.JLabel lblTanggal1;
     private javax.swing.JLabel lblUser;
+    private javax.swing.JRadioButton renam;
+    private javax.swing.JRadioButton rsetahun;
+    private javax.swing.JRadioButton rtiga;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtHarga;
+    private javax.swing.JTextField txtHarga1;
+    private javax.swing.JTextField txtIdKreditur;
     private javax.swing.JTextField txtKategori;
+    private javax.swing.JTextField txtKategori1;
     private javax.swing.JTextField txtKodeProduk;
+    private javax.swing.JTextField txtKodeProduk1;
     private javax.swing.JTextField txtMerk;
+    private javax.swing.JTextField txtMerk1;
     private javax.swing.JTextField txtNamaKreditur;
     private javax.swing.JTextField txtNamaProduk;
+    private javax.swing.JTextField txtNamaProduk1;
     private javax.swing.JTextField txtNoTransaksi;
     private javax.swing.JTextField txtNomorIdentitas;
     private javax.swing.JTextField txtNomorTelepon;
