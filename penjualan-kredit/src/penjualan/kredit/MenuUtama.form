@@ -67,6 +67,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Transaksi Kredit"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnTransaksiKreditActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnPembayaranKredit">
               <Properties>
@@ -75,6 +78,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Pembayaran Kredit"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnPembayaranKreditActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

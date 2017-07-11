@@ -174,10 +174,20 @@ public class MenuUtama extends javax.swing.JFrame {
 
         mnTransaksiKredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/credit-card.png"))); // NOI18N
         mnTransaksiKredit.setText("Transaksi Kredit");
+        mnTransaksiKredit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnTransaksiKreditActionPerformed(evt);
+            }
+        });
         mnTransaksi.add(mnTransaksiKredit);
 
         mnPembayaranKredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/notes.png"))); // NOI18N
         mnPembayaranKredit.setText("Pembayaran Kredit");
+        mnPembayaranKredit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnPembayaranKreditActionPerformed(evt);
+            }
+        });
         mnTransaksi.add(mnPembayaranKredit);
 
         jMenuBar2.add(mnTransaksi);
@@ -371,7 +381,10 @@ public class MenuUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_mnTentangTokoActionPerformed
 
     private void mnDataProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataProdukActionPerformed
-        // TODO add your handling code here:
+        boolean closable = true;
+        DataProduk produk = new DataProduk(null, closable);
+        produk.mu = this;
+        produk.setVisible(true);   
     }//GEN-LAST:event_mnDataProdukActionPerformed
 
     private void mnManajemenAkunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnManajemenAkunActionPerformed
@@ -422,6 +435,20 @@ public class MenuUtama extends javax.swing.JFrame {
         dk.mu = this;
         dk.setVisible(true);                       
     }//GEN-LAST:event_mnDataKrediturActionPerformed
+
+    private void mnTransaksiKreditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnTransaksiKreditActionPerformed
+        boolean closable = true;
+        Transaksi tr = new Transaksi(null, closable);
+        tr.mu = this;
+        tr.setVisible(true);   
+    }//GEN-LAST:event_mnTransaksiKreditActionPerformed
+
+    private void mnPembayaranKreditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPembayaranKreditActionPerformed
+       boolean closable = true;
+        Pembayaran pembayaran = new Pembayaran(null, closable);
+        pembayaran.mu = this;
+        pembayaran.setVisible(true);   
+    }//GEN-LAST:event_mnPembayaranKreditActionPerformed
 
     /**
      * @param args the command line arguments
