@@ -1613,6 +1613,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
             simpanAnak();
             simpanReferensi();
             JOptionPane.showMessageDialog(null,"Data Berhasil Disimpan");
+            this.dispose();
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,e);
         }
