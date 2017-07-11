@@ -56,24 +56,24 @@ public class DataKreditur1 extends javax.swing.JDialog {
     
     //========== START DATA PRIBADI PEMOHON ==========//
     private String idKreditur(){
+        String Next_nobp;
         String no=null;
+        int Next_nobp_int=0;
+        
         try{
-            String sql = "Select right(id_kreditur,3)+1 from kreditur ";
+            String sql = "Select * from kreditur ";
             ResultSet rs = kon.st.executeQuery(sql);
-            if (rs.next()){
-                rs.last();
-                no = rs.getString(1);
-                while (no.length()<5){
-                    no="00"+no;
-                    no="KRD-"+no;
-                txtIdKreditur.setText(no);    
-                }
+            if(rs.last()){
+                Next_nobp=rs.getString("id_kreditur");
+                Next_nobp_int=Integer.parseInt(Next_nobp) + 1;
+                no=String.valueOf(Next_nobp_int);
+                txtIdKreditur.setText(no);
             }else{
-                no="KRD-001";
-                txtIdKreditur.setText(no);    
+                no=String.valueOf(1);
+                txtIdKreditur.setText(no);
             }
-        }catch (Exception e){ 
-            JOptionPane.showMessageDialog(null, "No Otomatis Error");
+        }catch (Exception e){   
+            JOptionPane.showMessageDialog(null,"Error"+e);
         }return no;
     }
     
