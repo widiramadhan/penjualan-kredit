@@ -151,7 +151,7 @@ public class DataProduk extends javax.swing.JDialog {
     
     private void UpdateData(){
         try{
-            String sql="Update produk set nama_produk='"+txtNamaProduk.getText()+"',id_kategori='"+simpanKategori()+"',id_merk='"+simpanMerk()+"','"+txtDeskripsi.getText()+"','"+txtHarga.getText()+"' where kode_produk='"+txtKodeProduk.getText()+"'";
+            String sql="Update produk set nama_produk='"+txtNamaProduk.getText()+"',id_kategori='"+simpanKategori()+"',id_merk='"+simpanMerk()+"',deskripsi='"+txtDeskripsi.getText()+"',harga='"+txtHarga.getText()+"' where kode_produk='"+txtKodeProduk.getText()+"'";
             kon.st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null,"Data berhasil diupdate");
             Bersih();
@@ -176,7 +176,7 @@ public class DataProduk extends javax.swing.JDialog {
         
     private void BacaTabelProduk(){
         try{
-            String sql="Select * From produk A, kategori B, merk C where A.id_kategori=B.id_kategori AND A.id_merk=C.id_merk order by A,kode_produk";
+            String sql="Select * From produk A, kategori B, merk C where A.id_kategori=B.id_kategori AND A.id_merk=C.id_merk order by A.kode_produk";
             kon.rs=kon.st.executeQuery(sql);
             ResultSetMetaData m=kon.rs.getMetaData();
             int kolom=m.getColumnCount();
