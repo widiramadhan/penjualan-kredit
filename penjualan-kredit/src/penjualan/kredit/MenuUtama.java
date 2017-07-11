@@ -114,16 +114,13 @@ public class MenuUtama extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         mnFile = new javax.swing.JMenu();
         mnDataKreditur = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        mnTransaksi = new javax.swing.JMenu();
+        mnTransaksiKredit = new javax.swing.JMenuItem();
+        mnPembayaranKredit = new javax.swing.JMenuItem();
         mnProduk = new javax.swing.JMenu();
         mnDataProduk = new javax.swing.JMenuItem();
         mnDataKategori = new javax.swing.JMenuItem();
         mnDataMerk = new javax.swing.JMenuItem();
-        mnTransaksi = new javax.swing.JMenu();
-        mnTransaksiKredit = new javax.swing.JMenuItem();
-        mnPembayaranKredit = new javax.swing.JMenuItem();
         mnAkun = new javax.swing.JMenu();
         mnManajemenAkun = new javax.swing.JMenuItem();
         mnManajemenHakAkses = new javax.swing.JMenuItem();
@@ -159,18 +156,31 @@ public class MenuUtama extends javax.swing.JFrame {
         mnFile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         mnDataKreditur.setText("Data Kreditur");
+        mnDataKreditur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDataKrediturActionPerformed(evt);
+            }
+        });
         mnFile.add(mnDataKreditur);
 
-        jMenuItem1.setText("Data Pekerjaan");
-        mnFile.add(jMenuItem1);
-
-        jMenuItem2.setText("jMenuItem2");
-        mnFile.add(jMenuItem2);
-
-        jMenuItem3.setText("jMenuItem3");
-        mnFile.add(jMenuItem3);
-
         jMenuBar2.add(mnFile);
+
+        mnTransaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/change.png"))); // NOI18N
+        mnTransaksi.setText("Transaksi");
+        mnTransaksi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mnTransaksi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mnTransaksi.setMargin(new java.awt.Insets(10, 5, 5, 5));
+        mnTransaksi.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        mnTransaksiKredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/credit-card.png"))); // NOI18N
+        mnTransaksiKredit.setText("Transaksi Kredit");
+        mnTransaksi.add(mnTransaksiKredit);
+
+        mnPembayaranKredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/notes.png"))); // NOI18N
+        mnPembayaranKredit.setText("Pembayaran Kredit");
+        mnTransaksi.add(mnPembayaranKredit);
+
+        jMenuBar2.add(mnTransaksi);
 
         mnProduk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/cart.png"))); // NOI18N
         mnProduk.setText("Produk");
@@ -207,23 +217,6 @@ public class MenuUtama extends javax.swing.JFrame {
         mnProduk.add(mnDataMerk);
 
         jMenuBar2.add(mnProduk);
-
-        mnTransaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/change.png"))); // NOI18N
-        mnTransaksi.setText("Transaksi");
-        mnTransaksi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        mnTransaksi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        mnTransaksi.setMargin(new java.awt.Insets(10, 5, 5, 5));
-        mnTransaksi.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        mnTransaksiKredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/credit-card.png"))); // NOI18N
-        mnTransaksiKredit.setText("Transaksi Kredit");
-        mnTransaksi.add(mnTransaksiKredit);
-
-        mnPembayaranKredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/notes.png"))); // NOI18N
-        mnPembayaranKredit.setText("Pembayaran Kredit");
-        mnTransaksi.add(mnPembayaranKredit);
-
-        jMenuBar2.add(mnTransaksi);
 
         mnAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/akun.png"))); // NOI18N
         mnAkun.setText("Akun");
@@ -423,6 +416,13 @@ public class MenuUtama extends javax.swing.JFrame {
         dm.setVisible(true);
     }//GEN-LAST:event_mnDataMerkActionPerformed
 
+    private void mnDataKrediturActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataKrediturActionPerformed
+        boolean closable = true;
+        DataKreditur1 dk = new DataKreditur1(null, closable);
+        dk.mu = this;
+        dk.setVisible(true);                       
+    }//GEN-LAST:event_mnDataKrediturActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -469,9 +469,6 @@ public class MenuUtama extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JLabel lblHakAkses;
     private javax.swing.JMenu mnAkun;
     private javax.swing.JMenuItem mnBackupDatabase;
