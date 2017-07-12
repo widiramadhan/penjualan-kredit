@@ -23,7 +23,7 @@ import java.util.logging.*;
  */
 public class TransaksiDataTransaksi extends javax.swing.JDialog {
     Koneksi kon = new Koneksi();
-    public Transaksi trans = null;
+    public Pembayaran pembayaran = null;
     private Object [][] datatransaksi=null;
     private String[]label={"Nomor Transaksi","Nama Kreditur","Produk","Total Harga","Angsuran"};
 
@@ -188,9 +188,9 @@ public class TransaksiDataTransaksi extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
                 .addGap(10, 10, 10)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -206,8 +206,8 @@ public class TransaksiDataTransaksi extends javax.swing.JDialog {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(695, 395));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-695)/2, (screenSize.height-395)/2, 695, 395);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tcariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tcariKeyPressed
@@ -229,8 +229,8 @@ public class TransaksiDataTransaksi extends javax.swing.JDialog {
 
     private void tabel_transaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_transaksiMouseClicked
         // TODO add your handling code here:
-        int tblkreditur = tabel_transaksi.getSelectedRow();
-        trans.namaKreditur = tabel_transaksi.getValueAt(tblkreditur, 0).toString();
+        int tblTransaksi = tabel_transaksi.getSelectedRow();
+        pembayaran.noTrans = tabel_transaksi.getValueAt(tblTransaksi, 0).toString();
         this.dispose();
     }//GEN-LAST:event_tabel_transaksiMouseClicked
 

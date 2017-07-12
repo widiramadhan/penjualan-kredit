@@ -29,8 +29,14 @@ public class Pembayaran extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         kon.setKoneksi();
-        //tid_pengguna.setVisible(true);
+        ceklogin();
+        nonAktif();
+        lblIdPengguna.setVisible(false);
+        lblTanggal1.setVisible(false);
         
+        Date skrg = new Date();
+        SimpleDateFormat notrans=new SimpleDateFormat("ddMMyyyyHms");
+        txtNoPembayaran.setText(notrans.format(skrg));      
     }
     
     public String noTrans;
@@ -39,8 +45,98 @@ public class Pembayaran extends javax.swing.JDialog {
         return noTrans;
     }
     
-
+    private void ceklogin(){
+        try{
+            String sql="select * from pengguna where status='0'";
+            kon.rs=kon.st.executeQuery(sql);
+            if (kon.rs.next()){
+                String id=kon.rs.getString("id_pengguna");
+                String nama=kon.rs.getString("nama");
+                lblUser.setText(nama);
+                lblIdPengguna.setText(id);
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     
+    public void nonAktif(){
+        txtAngsuran1.setEnabled(false);
+        txtAngsuranKe.setEnabled(false);
+        txtDenda1.setEnabled(false);
+        txtKembali.setEnabled(false);
+        txtNamaKreditur.setEnabled(false);
+        txtTglJatuhTempo.setEnabled(false);
+    }
+    
+    private String angsuranKe(){
+        String Next_nobp;
+        String no=null;
+        int Next_nobp_int=0;
+        
+        try{
+            String sql = "Select * from pembayaran ";
+            ResultSet rs = kon.st.executeQuery(sql);
+            if(rs.last()){
+                Next_nobp=rs.getString("angsuran_ke");
+                Next_nobp_int=Integer.parseInt(Next_nobp) + 1;
+                no=String.valueOf(Next_nobp_int);
+                txtAngsuranKe.setText(no);
+            }else{
+                no=String.valueOf(1);
+                txtAngsuranKe.setText(no);
+            }
+        }catch (Exception e){   
+            JOptionPane.showMessageDialog(null,"Error"+e);
+        }return no;
+    }
+
+    public void setTransaksi(){
+        try{
+            String sql="select * from transaksi A, kreditur B, produk C WHERE A.id_kreditur=B.id_kreditur AND A.kode_produk=C.kode_produk AND A.no_transaksi='"+txtNoTransaksi.getText()+"'";
+            kon.rs=kon.st.executeQuery(sql);
+            if (kon.rs.next()){
+                String noTrans=kon.rs.getString("id_kreditur");
+                String namaKreditur=kon.rs.getString("nama_lengkap_kreditur");
+                String jatuhTempo=kon.rs.getString("tanggal_transaksi");
+                String angsuran=kon.rs.getString("angsuran");
+                float denda=0;
+                float total=Float.parseFloat(angsuran)+denda;
+                txtNoTransaksi.setText(noTrans);
+                txtNamaKreditur.setText(namaKreditur);
+                angsuranKe();
+                txtTglJatuhTempo.setText(jatuhTempo);
+                txtAngsuran1.setText(angsuran);
+                txtDenda1.setText("0");
+                lblTotal.setText(Float.toString(total));
+                txtNoTransaksi.setEnabled(false);
+                txtUangBayar.requestFocus();
+                btnNoTransaksi.setEnabled(false);
+            }else{
+                JOptionPane.showMessageDialog(this,"Nama yang anda cari tidak terdaftar","Informasi", JOptionPane.INFORMATION_MESSAGE);
+                txtNoTransaksi.setText("");
+                txtNamaKreditur.setText("");
+                txtAngsuranKe.setText("");
+                txtTglJatuhTempo.setText("");
+                txtAngsuran1.setText("");
+                txtDenda1.setText("");
+                lblTotal.setText("0,000,000");
+                txtNamaKreditur.requestFocus();
+            }
+        }catch(SQLException error){
+            JOptionPane.showMessageDialog(null, error);
+        }
+    }
+    
+    public void simpanData(){
+        try{
+            String simpan="insert into pembayaran values('"+txtNoPembayaran.getText()+"','"+txtNoTransaksi.getText()+"','"+lblTanggal1.getText()+"','"+txtTglJatuhTempo.getText()+"','"+txtAngsuranKe.getText()+"','0','"+txtDenda1.getText()+"','"+lblTotal.getText()+"')";
+            kon.st.executeUpdate(simpan);
+            JOptionPane.showMessageDialog(null, "Transaksi Pembayaran Berhasil di Proses");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,7 +148,6 @@ public class Pembayaran extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -72,19 +167,29 @@ public class Pembayaran extends javax.swing.JDialog {
         txtDenda1 = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtUangBayar = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        txtKembali = new javax.swing.JTextField();
+        btnTutup = new javax.swing.JButton();
+        btnProses = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtNoPembayaran = new javax.swing.JTextField();
+        lblTanggal = new javax.swing.JLabel();
+        lblUser = new javax.swing.JLabel();
+        lblIdPengguna = new javax.swing.JLabel();
+        lblTanggal1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/manajemen_akun.png"))); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Informasi Kreditur"));
@@ -170,14 +275,14 @@ public class Pembayaran extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel1.setText("Rp.");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
-        jLabel3.setText("0,000,000");
+        lblTotal.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        lblTotal.setText("0,000,000");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel24)
@@ -185,14 +290,13 @@ public class Pembayaran extends javax.swing.JDialog {
                     .addComponent(jLabel23))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1)
                     .addComponent(txtDenda1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAngsuran1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(81, 81, 81))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(92, 92, 92))
+                .addGap(61, 61, 61))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,17 +314,53 @@ public class Pembayaran extends javax.swing.JDialog {
                     .addComponent(jLabel25)
                     .addComponent(jLabel1))
                 .addGap(2, 2, 2)
-                .addComponent(jLabel3)
+                .addComponent(lblTotal)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel7.setText("Masukan Uang Bayar");
 
+        txtUangBayar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUangBayarKeyPressed(evt);
+            }
+        });
+
         jLabel8.setText("Kembali");
 
-        jButton1.setText("Tutup");
+        btnTutup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/logout.png"))); // NOI18N
+        btnTutup.setText("Tutup");
+        btnTutup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTutupActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Proses");
+        btnProses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/notes.png"))); // NOI18N
+        btnProses.setText("Proses");
+        btnProses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProsesActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Nomor Pembayaran");
+
+        txtNoPembayaran.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNoPembayaranKeyPressed(evt);
+            }
+        });
+
+        lblTanggal.setText("tanggal");
+
+        lblUser.setText("lbluser");
+
+        lblIdPengguna.setText("lbliduser");
+
+        lblTanggal1.setText("tanggal");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/manajemen_akun.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -229,9 +369,15 @@ public class Pembayaran extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(59, 59, 59)
+                        .addComponent(txtNoPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(91, 91, 91)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTanggal))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -243,23 +389,45 @@ public class Pembayaran extends javax.swing.JDialog {
                                     .addComponent(jLabel8))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                                    .addComponent(jTextField2)))
+                                    .addComponent(txtUangBayar, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                    .addComponent(txtKembali)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(btnProses)
                                 .addGap(9, 9, 9)
-                                .addComponent(jButton1)))))
-                .addContainerGap(41, Short.MAX_VALUE))
+                                .addComponent(btnTutup)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblUser, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblTanggal1)
+                                .addComponent(lblIdPengguna)))))
+                .addGap(41, 41, 41))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(lblTanggal1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblIdPengguna)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblUser))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jLabel10)
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel9)
+                    .addComponent(txtNoPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTanggal))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -267,22 +435,22 @@ public class Pembayaran extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUangBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addComponent(btnTutup)
+                    .addComponent(btnProses))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(735, 522));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-735)/2, (screenSize.height-522)/2, 735, 522);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNoTransaksiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNoTransaksiKeyPressed
@@ -295,12 +463,56 @@ public class Pembayaran extends javax.swing.JDialog {
     private void btnNoTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoTransaksiActionPerformed
         boolean closable = true;
         TransaksiDataTransaksi dt = new TransaksiDataTransaksi(null, closable);
-        dt.trans = this;
+        dt.pembayaran = this;
         dt.setVisible(true);
         dt.setResizable(true);
         txtNoTransaksi.setText(noTrans);
         setTransaksi();
     }//GEN-LAST:event_btnNoTransaksiActionPerformed
+
+    private void txtUangBayarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUangBayarKeyPressed
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             float uangBayar = Float.parseFloat(txtUangBayar.getText());
+             float totalBayar = Float.parseFloat(lblTotal.getText());
+             if(uangBayar<totalBayar){
+                 JOptionPane.showMessageDialog(null, "Uang Bayar Anda Kurang");
+                 txtUangBayar.setText("");
+                 txtUangBayar.requestFocus();
+             }else{
+                 txtKembali.setText(Float.toString(uangBayar-totalBayar));
+                 btnProses.requestFocus();
+             }
+         }
+    }//GEN-LAST:event_txtUangBayarKeyPressed
+
+    private void btnTutupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTutupActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnTutupActionPerformed
+
+    private void btnProsesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProsesActionPerformed
+             float uangBayar = Float.parseFloat(txtUangBayar.getText());
+             float totalBayar = Float.parseFloat(lblTotal.getText());
+             if(uangBayar<totalBayar){
+                 JOptionPane.showMessageDialog(null, "Uang Bayar Anda Kurang");
+                 txtUangBayar.setText("");
+                 txtUangBayar.requestFocus();
+             }else{
+                 txtKembali.setText(Float.toString(uangBayar-totalBayar));
+                 simpanData();
+             }
+    }//GEN-LAST:event_btnProsesActionPerformed
+
+    private void txtNoPembayaranKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNoPembayaranKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNoPembayaranKeyPressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        Date skrg = new Date();
+        SimpleDateFormat tgl=new SimpleDateFormat("dd MMMM yyyy");
+        SimpleDateFormat tgl2=new SimpleDateFormat("yyyy-MM-dd");
+        lblTanggal.setText(tgl.format(skrg));
+        lblTanggal1.setText(tgl2.format(skrg));
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -410,8 +622,8 @@ public class Pembayaran extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNoTransaksi;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnProses;
+    private javax.swing.JButton btnTutup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel18;
@@ -419,23 +631,29 @@ public class Pembayaran extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblIdPengguna;
+    private javax.swing.JLabel lblTanggal;
+    private javax.swing.JLabel lblTanggal1;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblUser;
     private javax.swing.JTextField txtAngsuran1;
     private javax.swing.JTextField txtAngsuranKe;
     private javax.swing.JTextField txtDenda1;
+    private javax.swing.JTextField txtKembali;
     private javax.swing.JTextField txtNamaKreditur;
+    private javax.swing.JTextField txtNoPembayaran;
     private javax.swing.JTextField txtNoTransaksi;
     private javax.swing.JTextField txtTglJatuhTempo;
+    private javax.swing.JTextField txtUangBayar;
     // End of variables declaration//GEN-END:variables
 }
