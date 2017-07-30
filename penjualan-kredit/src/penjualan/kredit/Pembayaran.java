@@ -32,7 +32,8 @@ public class Pembayaran extends javax.swing.JDialog {
         ceklogin();
         nonAktif();
         lblIdPengguna.setVisible(false);
-        lblTanggal1.setVisible(false);
+        lblTanggal1.setVisible(true);
+        txtIdKreditur.setVisible(false);
         
         Date skrg = new Date();
         SimpleDateFormat notrans=new SimpleDateFormat("ddMMyyyyHms");
@@ -96,13 +97,15 @@ public class Pembayaran extends javax.swing.JDialog {
             String sql="select * from transaksi A, kreditur B, produk C WHERE A.id_kreditur=B.id_kreditur AND A.kode_produk=C.kode_produk AND A.no_transaksi='"+txtNoTransaksi.getText()+"'";
             kon.rs=kon.st.executeQuery(sql);
             if (kon.rs.next()){
-                String noTrans=kon.rs.getString("id_kreditur");
+                String noTrans=kon.rs.getString("no_transaksi");
+                String idKreditur=kon.rs.getString("id_kreditur");
                 String namaKreditur=kon.rs.getString("nama_lengkap_kreditur");
                 String jatuhTempo=kon.rs.getString("tanggal_transaksi");
                 String angsuran=kon.rs.getString("angsuran");
                 float denda=0;
                 float total=Float.parseFloat(angsuran)+denda;
                 txtNoTransaksi.setText(noTrans);
+                txtIdKreditur.setText(idKreditur);
                 txtNamaKreditur.setText(namaKreditur);
                 angsuranKe();
                 txtTglJatuhTempo.setText(jatuhTempo);
@@ -130,7 +133,7 @@ public class Pembayaran extends javax.swing.JDialog {
     
     public void simpanData(){
         try{
-            String simpan="insert into pembayaran values('"+txtNoPembayaran.getText()+"','"+txtNoTransaksi.getText()+"','"+lblTanggal1.getText()+"','"+txtTglJatuhTempo.getText()+"','"+txtAngsuranKe.getText()+"','0','"+txtDenda1.getText()+"','"+lblTotal.getText()+"')";
+            String simpan="insert into pembayaran values('"+txtNoPembayaran.getText()+"','"+txtNoTransaksi.getText()+"','"+txtIdKreditur.getText()+"','"+lblTanggal1.getText()+"','"+txtTglJatuhTempo.getText()+"','"+txtAngsuranKe.getText()+"','0','"+txtDenda1.getText()+"','"+lblTotal.getText()+"')";
             kon.st.executeUpdate(simpan);
             JOptionPane.showMessageDialog(null, "Transaksi Pembayaran Berhasil di Proses");
         }catch(Exception e){
@@ -181,6 +184,7 @@ public class Pembayaran extends javax.swing.JDialog {
         lblIdPengguna = new javax.swing.JLabel();
         lblTanggal1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        txtIdKreditur = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -379,7 +383,11 @@ public class Pembayaran extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblTanggal))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(txtIdKreditur, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -436,21 +444,26 @@ public class Pembayaran extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtUangBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(txtIdKreditur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTutup)
                     .addComponent(btnProses))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-735)/2, (screenSize.height-522)/2, 735, 522);
+        setSize(new java.awt.Dimension(735, 522));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNoTransaksiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNoTransaksiKeyPressed
@@ -649,6 +662,7 @@ public class Pembayaran extends javax.swing.JDialog {
     private javax.swing.JTextField txtAngsuran1;
     private javax.swing.JTextField txtAngsuranKe;
     private javax.swing.JTextField txtDenda1;
+    private javax.swing.JTextField txtIdKreditur;
     private javax.swing.JTextField txtKembali;
     private javax.swing.JTextField txtNamaKreditur;
     private javax.swing.JTextField txtNoPembayaran;

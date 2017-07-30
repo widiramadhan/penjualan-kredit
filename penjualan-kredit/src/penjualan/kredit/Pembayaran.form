@@ -56,7 +56,13 @@
                           <Component id="lblTanggal" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="52" pref="52" max="-2" attributes="0"/>
+                                  <Component id="txtIdKreditur" min="-2" pref="111" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="jPanel3" min="-2" pref="306" max="-2" attributes="0"/>
@@ -131,17 +137,25 @@
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtUangBayar" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtKembali" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtKembali" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="txtIdKreditur" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnTutup" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnProses" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                  <EmptySpace pref="31" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -449,6 +463,8 @@
               <Image iconType="3" name="/penjualan/kredit/gambar/manajemen_akun.png"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtIdKreditur">
         </Component>
       </SubComponents>
     </Container>

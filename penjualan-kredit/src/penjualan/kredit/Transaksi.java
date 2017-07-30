@@ -184,7 +184,7 @@ public class Transaksi extends javax.swing.JDialog {
             float angsuran = Float.parseFloat(lblAngsuran.getText());
             float total = angsuran*(Float.parseFloat(tenor));
             
-            String simpan="insert into transaksi values('"+txtNoTransaksi.getText()+"','"+lblUser.getText()+"','"+txtIdKreditur.getText()+"','"+txtKodeProduk.getText()+"','"+lblTanggal1.getText()+"','"+txtHarga.getText()+"','"+tenor+"','0','"+lblAngsuran.getText()+"','"+total+"')";
+            String simpan="insert into transaksi values('"+txtNoTransaksi.getText()+"','"+lblIdPengguna.getText()+"','"+txtIdKreditur.getText()+"','"+txtKodeProduk.getText()+"','"+lblTanggal1.getText()+"','"+txtHarga.getText()+"','"+tenor+"','0','"+lblAngsuran.getText()+"','"+total+"')";
             kon.st.executeUpdate(simpan);
         }
         catch(SQLException e){
