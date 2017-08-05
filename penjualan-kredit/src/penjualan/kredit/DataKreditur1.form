@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup2">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
   <SyntheticProperties>
-    <SyntheticProperty name="formSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,70,0,0,2,-73"/>
+    <SyntheticProperty name="formSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,70,0,0,3,19"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="0"/>
     <SyntheticProperty name="generateSize" type="boolean" value="true"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowActivated" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowActivated"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -39,27 +48,17 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="tabDataKreditur" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel1" min="-2" pref="386" max="-2" attributes="0"/>
-                                      <Component id="jSeparator1" min="-2" pref="536" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="bKeluar" min="-2" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="bKeluar" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="tabDataKreditur" max="32767" attributes="0"/>
+                          <Component id="jLabel1" min="-2" pref="386" max="-2" attributes="0"/>
+                          <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="54" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -68,13 +67,13 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="61" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jSeparator1" min="-2" pref="5" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="tabDataKreditur" min="-2" pref="384" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="bKeluar" min="-2" pref="34" max="-2" attributes="0"/>
-                  <EmptySpace pref="21" max="32767" attributes="0"/>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -145,7 +144,7 @@
                                       <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="34" max="32767" attributes="0"/>
+                                  <EmptySpace pref="40" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtNamaIbuKandung" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
                                       <Group type="103" alignment="0" groupAlignment="0" attributes="0">
@@ -238,10 +237,10 @@
                                   <Component id="txtNamaIbuKandung" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="55" max="32767" attributes="0"/>
+                          <EmptySpace pref="45" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnNextDataPribadi" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnBatalDataPribadi" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnNextDataPribadi" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="btnBatalDataPribadi" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                               <Component id="txtIdKreditur" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -252,6 +251,9 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="btnNextDataPribadi">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/fast-forward.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Selanjutnya"/>
                   </Properties>
                   <Events>
@@ -438,6 +440,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnBatalDataPribadi">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/remove.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Batal"/>
                   </Properties>
                   <Events>
@@ -490,7 +495,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace type="separate" pref="22" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" pref="28" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtPengeluaran" min="-2" pref="260" max="-2" attributes="0"/>
                                       <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -568,18 +573,16 @@
                                   <Component id="jScrollPane2" max="32767" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="btnNextPekerjaan" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnPreviousPekerjaan" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnBatalPekerjaan" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnBatalPekerjaan" min="-2" pref="34" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="btnNextPekerjaan" pref="34" max="32767" attributes="0"/>
+                                  <Component id="btnPreviousPekerjaan" alignment="1" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="txtIdPekerjaan" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="txtIdPekerjaan" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
@@ -590,6 +593,9 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="btnNextPekerjaan">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/fast-forward.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Selanjutnya"/>
                   </Properties>
                   <Events>
@@ -598,6 +604,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnPreviousPekerjaan">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/rewind.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Sebelumnya"/>
                   </Properties>
                   <Events>
@@ -724,6 +733,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnBatalPekerjaan">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/remove.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Batal"/>
                   </Properties>
                   <Events>
@@ -746,22 +758,34 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="35" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="txtIdPasangan" min="-2" pref="93" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="btnPreviousPasangan" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnNextPasangan" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnBatalPasangan" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtNamaPasangan" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jLabel31" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane3" min="-2" pref="299" max="-2" attributes="0"/>
+                                      <Component id="jScrollPane3" alignment="1" min="-2" pref="299" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -775,23 +799,28 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <Component id="txtIdPasangan" alignment="0" min="-2" pref="93" max="-2" attributes="0"/>
+                              <Component id="rMenikah" min="-2" max="-2" attributes="0"/>
+                              <Component id="rBelumMenikah" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                          <EmptySpace pref="27" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Component id="rBelumMenikah" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="rMenikah" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtNamaPasangan" min="-2" pref="29" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtNomorIdentitasPasangan" min="-2" pref="29" max="-2" attributes="0"/>
@@ -805,18 +834,18 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="txtUmurPasangan" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                                   <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                          <EmptySpace pref="47" max="32767" attributes="0"/>
                           <Component id="txtIdPasangan" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="67" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnBatalPasangan" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnNextPasangan" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnPreviousPasangan" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnBatalPasangan" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="btnNextPasangan" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="btnPreviousPasangan" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -884,6 +913,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnBatalPasangan">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/remove.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Batal"/>
                   </Properties>
                   <Events>
@@ -892,6 +924,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnNextPasangan">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/fast-forward.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Selanjutnya"/>
                   </Properties>
                   <Events>
@@ -900,6 +935,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnPreviousPasangan">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/rewind.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Sebelumnya"/>
                   </Properties>
                   <Events>
@@ -907,6 +945,28 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtIdPasangan">
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="rBelumMenikah">
+                  <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroup1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Belum Menikah"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rBelumMenikahActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="rMenikah">
+                  <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroup1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Menikah"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rMenikahActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -942,7 +1002,7 @@
                                       <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
                                       <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="45" max="32767" attributes="0"/>
+                                  <EmptySpace pref="51" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel35" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtPekerjaanAnak" alignment="0" min="-2" pref="256" max="-2" attributes="0"/>
@@ -950,26 +1010,48 @@
                                       <Component id="txtTanggalLahir" alignment="0" min="-2" pref="256" max="-2" attributes="0"/>
                                       <Component id="jLabel37" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtUmurAnak" alignment="0" min="-2" pref="256" max="-2" attributes="0"/>
+                                      <Component id="jDateChooser1" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="rpunya" min="-2" max="-2" attributes="0"/>
+                              <Component id="rtidakpunya" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                  <Component id="rtidakpunya" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="10" max="32767" attributes="0"/>
+                                  <Component id="rpunya" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jDateChooser1" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="txtNamaAnak" min="-2" pref="29" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="txtTanggalLahir" min="-2" pref="29" max="-2" attributes="0"/>
@@ -980,7 +1062,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtTempatLahir" min="-2" pref="29" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtUmurAnak" min="-2" pref="29" max="-2" attributes="0"/>
@@ -996,13 +1078,13 @@
                               <Component id="txtPekerjaanAnak" min="-2" pref="29" max="-2" attributes="0"/>
                               <Component id="jScrollPane4" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="56" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnBatalAnak" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnNextAnak" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnPreviousAnak" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnBatalAnak" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="btnNextAnak" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="btnPreviousAnak" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1083,6 +1165,9 @@
                 </Container>
                 <Component class="javax.swing.JButton" name="btnBatalAnak">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/remove.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Batal"/>
                   </Properties>
                   <Events>
@@ -1091,6 +1176,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnNextAnak">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/fast-forward.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Selanjutnya"/>
                   </Properties>
                   <Events>
@@ -1099,11 +1187,29 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnPreviousAnak">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/rewind.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Sebelumnya"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPreviousAnakActionPerformed"/>
                   </Events>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="rtidakpunya">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Tidak Mempunyai Anak"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rtidakpunyaActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="rpunya">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Mempunyai Anak (Masukan 1 Data Anak)"/>
+                  </Properties>
+                </Component>
+                <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
                 </Component>
               </SubComponents>
             </Container>
@@ -1129,7 +1235,7 @@
                               <Component id="txtHubungan" alignment="0" min="-2" pref="249" max="-2" attributes="0"/>
                               <Component id="txtNamaReferensi" min="-2" pref="249" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="51" max="32767" attributes="0"/>
+                          <EmptySpace pref="57" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel43" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1178,11 +1284,11 @@
                                   <Component id="txtNoTelpReferensi" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="122" max="32767" attributes="0"/>
+                          <EmptySpace pref="111" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnBatalReferensi" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnSave" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnPreviousReferensi" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnBatalReferensi" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="btnSave" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="btnPreviousReferensi" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       </Group>
@@ -1255,6 +1361,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnBatalReferensi">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/fast-forward.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Batal"/>
                   </Properties>
                   <Events>
@@ -1263,6 +1372,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnSave">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/simpan.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Simpan"/>
                   </Properties>
                   <Events>
@@ -1271,6 +1383,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnPreviousReferensi">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/penjualan/kredit/gambar/rewind.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Sebelumnya"/>
                   </Properties>
                   <Events>

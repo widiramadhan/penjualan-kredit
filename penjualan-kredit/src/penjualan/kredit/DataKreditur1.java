@@ -294,6 +294,8 @@ public class DataKreditur1 extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -375,6 +377,8 @@ public class DataKreditur1 extends javax.swing.JDialog {
         btnNextPasangan = new javax.swing.JButton();
         btnPreviousPasangan = new javax.swing.JButton();
         txtIdPasangan = new javax.swing.JTextField();
+        rBelumMenikah = new javax.swing.JRadioButton();
+        rMenikah = new javax.swing.JRadioButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
         txtNamaAnak = new javax.swing.JTextField();
@@ -392,6 +396,9 @@ public class DataKreditur1 extends javax.swing.JDialog {
         btnBatalAnak = new javax.swing.JButton();
         btnNextAnak = new javax.swing.JButton();
         btnPreviousAnak = new javax.swing.JButton();
+        rtidakpunya = new javax.swing.JRadioButton();
+        rpunya = new javax.swing.JRadioButton();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel6 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         txtNamaReferensi = new javax.swing.JTextField();
@@ -410,11 +417,17 @@ public class DataKreditur1 extends javax.swing.JDialog {
         bKeluar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/data_kreditur.png"))); // NOI18N
 
+        btnNextDataPribadi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/fast-forward.png"))); // NOI18N
         btnNextDataPribadi.setText("Selanjutnya");
         btnNextDataPribadi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -423,10 +436,10 @@ public class DataKreditur1 extends javax.swing.JDialog {
         });
 
         txtNamaLengkap.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtNamaLengkapInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtNamaLengkap.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -553,6 +566,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
 
         jLabel16.setText("Nama Ibu Kandung");
 
+        btnBatalDataPribadi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/remove.png"))); // NOI18N
         btnBatalDataPribadi.setText("Batal");
         btnBatalDataPribadi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -600,7 +614,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
                             .addComponent(jLabel14)
                             .addComponent(jLabel16)
                             .addComponent(jLabel15))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNamaIbuKandung, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -674,16 +688,17 @@ public class DataKreditur1 extends javax.swing.JDialog {
                             .addComponent(jLabel15))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNamaIbuKandung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNextDataPribadi)
-                    .addComponent(btnBatalDataPribadi)
+                    .addComponent(btnNextDataPribadi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBatalDataPribadi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtIdKreditur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
 
         tabDataKreditur.addTab("Data Pribadi Pemohon", jPanel2);
 
+        btnNextPekerjaan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/fast-forward.png"))); // NOI18N
         btnNextPekerjaan.setText("Selanjutnya");
         btnNextPekerjaan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -691,6 +706,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
             }
         });
 
+        btnPreviousPekerjaan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/rewind.png"))); // NOI18N
         btnPreviousPekerjaan.setText("Sebelumnya");
         btnPreviousPekerjaan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -783,6 +799,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
 
         jLabel27.setText("Bulan");
 
+        btnBatalPekerjaan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/remove.png"))); // NOI18N
         btnBatalPekerjaan.setText("Batal");
         btnBatalPekerjaan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -810,15 +827,16 @@ public class DataKreditur1 extends javax.swing.JDialog {
                             .addComponent(jLabel23)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtBidangUsaha, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtNamaPerusahaan, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel19)
-                                    .addGap(220, 220, 220))
-                                .addComponent(txtNamaPekerjaan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtNamaPerusahaan, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(18, 22, Short.MAX_VALUE)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtNamaPekerjaan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(1, 1, 1))))
+                        .addGap(18, 28, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPengeluaran, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel20)
@@ -885,16 +903,15 @@ public class DataKreditur1 extends javax.swing.JDialog {
                         .addComponent(jLabel23)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnNextPekerjaan)
-                            .addComponent(btnPreviousPekerjaan)
-                            .addComponent(btnBatalPekerjaan)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtIdPekerjaan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnBatalPekerjaan, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnNextPekerjaan, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                        .addComponent(btnPreviousPekerjaan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(txtIdPekerjaan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, Short.MAX_VALUE))))
                 .addGap(19, 19, 19))
         );
 
@@ -937,6 +954,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
 
         jLabel32.setText("Tahun");
 
+        btnBatalPasangan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/remove.png"))); // NOI18N
         btnBatalPasangan.setText("Batal");
         btnBatalPasangan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -944,6 +962,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
             }
         });
 
+        btnNextPasangan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/fast-forward.png"))); // NOI18N
         btnNextPasangan.setText("Selanjutnya");
         btnNextPasangan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -951,6 +970,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
             }
         });
 
+        btnPreviousPasangan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/rewind.png"))); // NOI18N
         btnPreviousPasangan.setText("Sebelumnya");
         btnPreviousPasangan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -958,25 +978,50 @@ public class DataKreditur1 extends javax.swing.JDialog {
             }
         });
 
+        buttonGroup1.add(rBelumMenikah);
+        rBelumMenikah.setText("Belum Menikah");
+        rBelumMenikah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBelumMenikahActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rMenikah);
+        rMenikah.setText("Menikah");
+        rMenikah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rMenikahActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(txtIdPasangan, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnPreviousPasangan)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNextPasangan)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBatalPasangan))
+                        .addComponent(btnBatalPasangan)))
+                .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel28)
                             .addComponent(txtNamaPasangan)
                             .addComponent(jLabel31)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel30)
@@ -986,13 +1031,18 @@ public class DataKreditur1 extends javax.swing.JDialog {
                                 .addComponent(txtUmurPasangan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel32))))
-                    .addComponent(txtIdPasangan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                    .addComponent(rMenikah)
+                    .addComponent(rBelumMenikah))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(rBelumMenikah)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rMenikah)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel28)
@@ -1012,13 +1062,13 @@ public class DataKreditur1 extends javax.swing.JDialog {
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtUmurPasangan, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel32)))
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(txtIdPasangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addGap(5, 5, 5)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBatalPasangan)
-                    .addComponent(btnNextPasangan)
-                    .addComponent(btnPreviousPasangan))
+                    .addComponent(btnBatalPasangan, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNextPasangan, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPreviousPasangan, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1075,6 +1125,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
         });
         jScrollPane4.setViewportView(txtAlamatAnak);
 
+        btnBatalAnak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/remove.png"))); // NOI18N
         btnBatalAnak.setText("Batal");
         btnBatalAnak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1082,6 +1133,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
             }
         });
 
+        btnNextAnak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/fast-forward.png"))); // NOI18N
         btnNextAnak.setText("Selanjutnya");
         btnNextAnak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1089,12 +1141,22 @@ public class DataKreditur1 extends javax.swing.JDialog {
             }
         });
 
+        btnPreviousAnak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/rewind.png"))); // NOI18N
         btnPreviousAnak.setText("Sebelumnya");
         btnPreviousAnak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPreviousAnakActionPerformed(evt);
             }
         });
+
+        rtidakpunya.setText("Tidak Mempunyai Anak");
+        rtidakpunya.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rtidakpunyaActionPerformed(evt);
+            }
+        });
+
+        rpunya.setText("Mempunyai Anak (Masukan 1 Data Anak)");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1118,20 +1180,37 @@ public class DataKreditur1 extends javax.swing.JDialog {
                             .addComponent(txtTempatLahir, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                             .addComponent(jLabel38)
                             .addComponent(jScrollPane4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel35)
                             .addComponent(txtPekerjaanAnak, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel36)
                             .addComponent(txtTanggalLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel37)
-                            .addComponent(txtUmurAnak, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtUmurAnak, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(37, 37, 37))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rpunya)
+                    .addComponent(rtidakpunya))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(rtidakpunya)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addComponent(rpunya)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1159,12 +1238,12 @@ public class DataKreditur1 extends javax.swing.JDialog {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPekerjaanAnak, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBatalAnak)
-                    .addComponent(btnNextAnak)
-                    .addComponent(btnPreviousAnak))
-                .addGap(20, 20, 20))
+                    .addComponent(btnBatalAnak, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNextAnak, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPreviousAnak, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         tabDataKreditur.addTab("Data Anak", jPanel5);
@@ -1212,6 +1291,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
             }
         });
 
+        btnBatalReferensi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/fast-forward.png"))); // NOI18N
         btnBatalReferensi.setText("Batal");
         btnBatalReferensi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1219,6 +1299,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
             }
         });
 
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/simpan.png"))); // NOI18N
         btnSave.setText("Simpan");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1226,6 +1307,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
             }
         });
 
+        btnPreviousReferensi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/penjualan/kredit/gambar/rewind.png"))); // NOI18N
         btnPreviousReferensi.setText("Sebelumnya");
         btnPreviousReferensi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1246,7 +1328,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
                     .addComponent(jLabel40)
                     .addComponent(txtHubungan, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNamaReferensi, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel42)
                     .addComponent(jLabel43)
@@ -1287,11 +1369,11 @@ public class DataKreditur1 extends javax.swing.JDialog {
                         .addComponent(jLabel43)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNoTelpReferensi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBatalReferensi)
-                    .addComponent(btnSave)
-                    .addComponent(btnPreviousReferensi))
+                    .addComponent(btnBatalReferensi, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPreviousReferensi, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
 
@@ -1310,38 +1392,32 @@ public class DataKreditur1 extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tabDataKreditur)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bKeluar)))
-                .addContainerGap())
+                .addGap(78, 78, 78)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bKeluar)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(tabDataKreditur)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator1)))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tabDataKreditur, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(695, 582));
+        setSize(new java.awt.Dimension(787, 582));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1519,8 +1595,14 @@ public class DataKreditur1 extends javax.swing.JDialog {
         tabDataKreditur.setEnabledAt(2, false);
         tabDataKreditur.setEnabledAt(3, true);
         tabDataKreditur.setEnabledAt(4, false);
-        tabDataKreditur.setEnabledAt(tabDataKreditur.getTabCount() - 1, false);
-        tabDataKreditur.setSelectedIndex(3);
+           
+        if(rBelumMenikah.isSelected()){
+            tabDataKreditur.setEnabledAt(tabDataKreditur.getTabCount() - 2, false);
+            tabDataKreditur.setSelectedIndex(4);
+        }else if(rMenikah.isSelected()){
+            tabDataKreditur.setEnabledAt(tabDataKreditur.getTabCount() - 1, false);
+            tabDataKreditur.setSelectedIndex(3);
+        }
     }//GEN-LAST:event_btnNextPasanganActionPerformed
 
     private void btnBatalAnakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalAnakActionPerformed
@@ -1559,10 +1641,6 @@ public class DataKreditur1 extends javax.swing.JDialog {
        cekFormAnak();
     }//GEN-LAST:event_txtAlamatAnakKeyTyped
 
-    private void txtTanggalLahirKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTanggalLahirKeyTyped
-       cekFormAnak();
-    }//GEN-LAST:event_txtTanggalLahirKeyTyped
-
     private void txtUmurAnakKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUmurAnakKeyTyped
         cekFormAnak();
     }//GEN-LAST:event_txtUmurAnakKeyTyped
@@ -1581,8 +1659,14 @@ public class DataKreditur1 extends javax.swing.JDialog {
         tabDataKreditur.setEnabledAt(2, false);
         tabDataKreditur.setEnabledAt(3, true);
         tabDataKreditur.setEnabledAt(4, false);
-        tabDataKreditur.setEnabledAt(tabDataKreditur.getTabCount() - 1, false);
-        tabDataKreditur.setSelectedIndex(3);
+        
+        if(rBelumMenikah.isSelected()){
+            tabDataKreditur.setEnabledAt(tabDataKreditur.getTabCount() - 2, false);
+            tabDataKreditur.setSelectedIndex(2);
+        }else if(rMenikah.isSelected()){
+            tabDataKreditur.setEnabledAt(tabDataKreditur.getTabCount() - 1, false);
+            tabDataKreditur.setSelectedIndex(3);
+        }
     }//GEN-LAST:event_btnPreviousReferensiActionPerformed
 
     private void txtNamaReferensiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNamaReferensiKeyTyped
@@ -1634,6 +1718,37 @@ public class DataKreditur1 extends javax.swing.JDialog {
     private void txtAlamatPasanganKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAlamatPasanganKeyTyped
         cekFormPasangan();
     }//GEN-LAST:event_txtAlamatPasanganKeyTyped
+
+    private void rBelumMenikahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBelumMenikahActionPerformed
+        txtNamaPasangan.setEnabled(false);
+        txtAlamatPasangan.setEnabled(false);
+        txtNomorIdentitasPasangan.setEnabled(false);
+        txtUmurPasangan.setEnabled(false);
+        btnNextPasangan.setEnabled(true);
+    }//GEN-LAST:event_rBelumMenikahActionPerformed
+
+    private void rMenikahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rMenikahActionPerformed
+        txtNamaPasangan.setEnabled(true);
+        txtAlamatPasangan.setEnabled(true);
+        txtNomorIdentitasPasangan.setEnabled(true);
+        txtUmurPasangan.setEnabled(true);
+        btnNextPasangan.setEnabled(false);
+    }//GEN-LAST:event_rMenikahActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        txtNamaPasangan.setEnabled(false);
+        txtAlamatPasangan.setEnabled(false);
+        txtNomorIdentitasPasangan.setEnabled(false);
+        txtUmurPasangan.setEnabled(false);
+    }//GEN-LAST:event_formWindowActivated
+
+    private void rtidakpunyaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rtidakpunyaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rtidakpunyaActionPerformed
+
+    private void txtTanggalLahirKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTanggalLahirKeyTyped
+        cekFormAnak();
+    }//GEN-LAST:event_txtTanggalLahirKeyTyped
 
     /**
      * @param args the command line arguments
@@ -1697,7 +1812,10 @@ public class DataKreditur1 extends javax.swing.JDialog {
     private javax.swing.JButton btnPreviousPekerjaan;
     private javax.swing.JButton btnPreviousReferensi;
     private javax.swing.JButton btnSave;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cmbJenisIdentitas;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1753,6 +1871,10 @@ public class DataKreditur1 extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JRadioButton rBelumMenikah;
+    private javax.swing.JRadioButton rMenikah;
+    private javax.swing.JRadioButton rpunya;
+    private javax.swing.JRadioButton rtidakpunya;
     private javax.swing.JTabbedPane tabDataKreditur;
     private javax.swing.JTextArea txtAlamat;
     private javax.swing.JTextArea txtAlamatAnak;
