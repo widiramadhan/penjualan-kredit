@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b323979f-bc3c-426f-b6bc-27ab24f15d40">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="424" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="580" height="80" uuid="c7a98a60-4142-4f82-b219-e518fdf6a07f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="80" width="60" height="71" uuid="6fc93d03-ea4d-4178-b3ab-e407a9d3a524"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="60" y="80" width="220" height="71" uuid="8bd5a1ad-c821-4af8-9cb9-58d05d4aae00"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="280" y="80" width="70" height="71" uuid="6b89a53b-1b32-4c11-a2f0-b2d07b345472"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="350" y="80" width="230" height="71" uuid="3a9308de-f63c-4541-a6da-c856bd2b69ed"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="151" width="480" height="70" uuid="f39c55e2-cb71-471d-90ff-329c59f3686c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="480" y="151" width="100" height="70" uuid="259b3c0c-58dd-4a0d-931a-be6def7dba61"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="220" width="480" height="41" uuid="6b47993f-fbb6-44e6-90ba-a86d3271f284"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="480" y="221" width="100" height="40" uuid="09311e78-6877-4e67-baa2-1aecfbf61979"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="259" width="580" height="52" uuid="0a2551b2-fa8b-446e-aef4-3cedfb01ba9c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="600" y="0" width="201" height="31" uuid="6ba2a39d-29e4-47c5-840d-63f4bc59b182"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="600" y="40" width="201" height="150" uuid="464d1386-0992-4c7d-ab69-f39a4e4aab2d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="600" y="200" width="201" height="111" uuid="16aeb39a-d51f-4baf-8afb-9081a5535989"/>
+			</rectangle>
+			<line>
+				<reportElement x="600" y="235" width="201" height="1" uuid="c7c864ab-4604-4d62-bbcf-ca8637112e16"/>
+			</line>
+			<line>
+				<reportElement x="600" y="284" width="201" height="1" uuid="f81d05dd-7c5b-488c-918c-91fa3cb3fe85"/>
+			</line>
+			<line>
+				<reportElement x="683" y="200" width="1" height="111" uuid="01c99d94-c15c-4f65-a3d7-fe1538d1a96a"/>
+			</line>
+			<staticText>
+				<reportElement x="120" y="20" width="360" height="40" uuid="fc7b8ee0-3ee7-4abf-8a0e-876e5475d8f3"/>
+				<textElement>
+					<font fontName="SansSerif" size="23" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KWITANSI ANGSURAN KREDIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="89" width="50" height="60" uuid="7979cba8-dbb2-4522-b684-5ea77ffee7c6"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[SUDAH TERIMA DARI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="90" width="55" height="50" uuid="007efbef-2501-40c5-8c11-24d2e3af8cd9"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[ALAMAT RT/RW/ TELP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="157" width="130" height="20" uuid="f25ce4a5-87f6-4013-9ef6-34c5e9802888"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Angsuran sewa beli ke:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="180" width="195" height="20" uuid="595fa475-3fb0-4429-94d4-608825ab886f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Denda keterlambatan pembayaran]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="200" width="100" height="20" uuid="8bfc7442-f57b-4a68-b04e-76f769c5822a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Biaya Penagihan:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="229" width="36" height="21" uuid="72973eee-ba53-4807-8848-43af7fe2c5b8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Faktur:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="270" width="65" height="21" uuid="38f64cd2-772b-495d-9a96-88b4ff3aa6b5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Terbilang:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="6" width="34" height="20" uuid="832fb38e-fbad-45ae-85be-d09e40f8caf4"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[No:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="610" y="50" width="181" height="130" isPrintWhenDetailOverflows="true" uuid="ca5bda65-8ce6-433f-a461-771be5081af2"/>
+				<textElement markup="html">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>PERHATIAN</b><br>- Jika anda ditagih, minta dan periksalah  Kartu Identitas yang resmi<br>- Simpanlah kwitansi ini jangan sampai hilang.<br>- Bawalah kwitansi ini setiap kali anda melakukan pembayaran ke showroom<br>- Pembayaran dianggap SAH jika uang telah diterima oleh kasir<br>- TERIMA KASIH"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="604" y="206" width="64" height="23" uuid="8af0508a-59c9-4b80-9e0c-0fa5fbc94f86"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Tgl. Terima]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="603" y="241" width="83" height="35" uuid="a6e62c33-fe16-4bca-89f8-9692a63ce9b0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Tanda Tangan Penerima]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="605" y="291" width="71" height="26" uuid="b4cf9df7-1036-4d83-9042-596cbac6b18f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nama Jelas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="229" width="50" height="21" uuid="d70d345b-5f83-4783-838e-6e490f5937cc"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Tanggal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="326" y="158" width="100" height="21" uuid="4ecf47d5-e850-44d7-92ed-3fe1d9178a81"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Tgl. Jatuh Tempo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="180" width="60" height="21" uuid="c82a3724-31ef-41e9-8455-704280c4861d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[hari x Rp.]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>
