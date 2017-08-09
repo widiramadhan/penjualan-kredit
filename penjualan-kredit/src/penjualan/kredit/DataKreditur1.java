@@ -226,9 +226,9 @@ public class DataKreditur1 extends javax.swing.JDialog {
     
     //========== END DATA ANAK ==========//    
         public void cekFormAnak(){
-            if(txtNamaAnak.getText().isEmpty() || txtTempatLahir.getText().isEmpty() || txtTanggalLahir.getText().isEmpty() || txtAlamatAnak.getText().isEmpty() || txtUmurAnak.getText().isEmpty() || txtPekerjaanAnak.getText().isEmpty()){
+            if(txtNamaAnak.getText().isEmpty() || txtTempatLahir.getText().isEmpty() || txtTanggalLahir.getDate()==null || txtAlamatAnak.getText().isEmpty() || txtUmurAnak.getText().isEmpty() || txtPekerjaanAnak.getText().isEmpty()){
                 btnNextAnak.setEnabled(false);
-            }else if(txtNamaAnak.getText().equals("") || txtTempatLahir.getText().equals("") || txtTanggalLahir.getText().equals("") || txtAlamatAnak.getText().equals("") || txtUmurAnak.getText().equals("") || txtPekerjaanAnak.getText().equals("")){
+            }else if(txtNamaAnak.getText().equals("") || txtTempatLahir.getText().equals("") || txtTanggalLahir.getDate()==null || txtAlamatAnak.getText().equals("") || txtUmurAnak.getText().equals("") || txtPekerjaanAnak.getText().equals("")){
                 btnNextAnak.setEnabled(false);
             }else{
                 btnNextAnak.setEnabled(true);
@@ -238,7 +238,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
         public void bersihAnak(){
             txtNamaAnak.setText("");
             txtTempatLahir.setText("");
-            txtTanggalLahir.setText("");
+            txtTanggalLahir.setDate(null);
             txtAlamatAnak.setText("");
             txtUmurAnak.setText("");
             txtPekerjaanAnak.setText("");
@@ -246,7 +246,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
         
         public void simpanAnak(){
         try{
-            String simpanAnak="insert into data_anak values('"+txtIdKreditur.getText()+"','"+txtNamaAnak.getText()+"','"+txtTempatLahir.getText()+"','"+txtTanggalLahir.getText()+"','"+txtAlamat.getText()+"','"+txtUmurAnak.getText()+"','"+txtPekerjaanAnak.getText()+"')";
+            String simpanAnak="insert into data_anak values('"+txtIdKreditur.getText()+"','"+txtNamaAnak.getText()+"','"+txtTempatLahir.getText()+"','"+txtTanggalLahir.getDate()+"','"+txtAlamat.getText()+"','"+txtUmurAnak.getText()+"','"+txtPekerjaanAnak.getText()+"')";
             kon.st.executeUpdate(simpanAnak);
         }
         catch(SQLException e){
@@ -386,7 +386,6 @@ public class DataKreditur1 extends javax.swing.JDialog {
         jLabel34 = new javax.swing.JLabel();
         txtPekerjaanAnak = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
-        txtTanggalLahir = new javax.swing.JTextField();
         jLabel36 = new javax.swing.JLabel();
         txtUmurAnak = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
@@ -398,7 +397,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
         btnPreviousAnak = new javax.swing.JButton();
         rtidakpunya = new javax.swing.JRadioButton();
         rpunya = new javax.swing.JRadioButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        txtTanggalLahir = new com.toedter.calendar.JDateChooser();
         jPanel6 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         txtNamaReferensi = new javax.swing.JTextField();
@@ -614,7 +613,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
                             .addComponent(jLabel14)
                             .addComponent(jLabel16)
                             .addComponent(jLabel15))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNamaIbuKandung, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -836,7 +835,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
                                         .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtNamaPekerjaan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(1, 1, 1))))
-                        .addGap(18, 28, Short.MAX_VALUE)
+                        .addGap(18, 50, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPengeluaran, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel20)
@@ -1033,7 +1032,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
                                 .addComponent(jLabel32))))
                     .addComponent(rMenikah)
                     .addComponent(rBelumMenikah))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1098,12 +1097,6 @@ public class DataKreditur1 extends javax.swing.JDialog {
 
         jLabel35.setText("Pekerjaan");
 
-        txtTanggalLahir.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtTanggalLahirKeyTyped(evt);
-            }
-        });
-
         jLabel36.setText("Tanggal Lahir");
 
         txtUmurAnak.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1157,6 +1150,13 @@ public class DataKreditur1 extends javax.swing.JDialog {
         });
 
         rpunya.setText("Mempunyai Anak (Masukan 1 Data Anak)");
+        rpunya.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rpunyaActionPerformed(evt);
+            }
+        });
+
+        txtTanggalLahir.setDateFormatString("yyyy-MM-dd");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1172,7 +1172,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBatalAnak))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
+                        .addGap(56, 56, 56)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel33)
                             .addComponent(txtNamaAnak)
@@ -1185,10 +1185,9 @@ public class DataKreditur1 extends javax.swing.JDialog {
                             .addComponent(jLabel35)
                             .addComponent(txtPekerjaanAnak, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel36)
-                            .addComponent(txtTanggalLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel37)
                             .addComponent(txtUmurAnak, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtTanggalLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(37, 37, 37))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
@@ -1200,17 +1199,11 @@ public class DataKreditur1 extends javax.swing.JDialog {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(rtidakpunya)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addComponent(rpunya)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)))
+                .addGap(17, 17, 17)
+                .addComponent(rtidakpunya)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(rpunya)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1220,8 +1213,8 @@ public class DataKreditur1 extends javax.swing.JDialog {
                                 .addComponent(txtNamaAnak, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel36)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTanggalLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(5, 5, 5)
+                                .addComponent(txtTanggalLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel34)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1328,7 +1321,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
                     .addComponent(jLabel40)
                     .addComponent(txtHubungan, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNamaReferensi, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel42)
                     .addComponent(jLabel43)
@@ -1399,7 +1392,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
                         .addComponent(tabDataKreditur)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jSeparator1)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1743,12 +1736,24 @@ public class DataKreditur1 extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowActivated
 
     private void rtidakpunyaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rtidakpunyaActionPerformed
-        // TODO add your handling code here:
+        txtNamaAnak.setEnabled(false);
+        txtTempatLahir.setEnabled(false);
+        txtAlamatAnak.setEnabled(false);
+        txtTanggalLahir.setEnabled(false);
+        txtUmurAnak.setEnabled(false);
+        txtPekerjaanAnak.setEnabled(false);
+        btnNextAnak.setEnabled(true);
     }//GEN-LAST:event_rtidakpunyaActionPerformed
 
-    private void txtTanggalLahirKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTanggalLahirKeyTyped
-        cekFormAnak();
-    }//GEN-LAST:event_txtTanggalLahirKeyTyped
+    private void rpunyaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rpunyaActionPerformed
+        txtNamaAnak.setEnabled(true);
+        txtTempatLahir.setEnabled(true);
+        txtAlamatAnak.setEnabled(true);
+        txtTanggalLahir.setEnabled(true);
+        txtUmurAnak.setEnabled(true);
+        txtPekerjaanAnak.setEnabled(true);
+        btnNextAnak.setEnabled(false);
+    }//GEN-LAST:event_rpunyaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1815,7 +1820,6 @@ public class DataKreditur1 extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cmbJenisIdentitas;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1913,7 +1917,7 @@ public class DataKreditur1 extends javax.swing.JDialog {
     private javax.swing.JTextField txtPekerjaanReferensi;
     private javax.swing.JTextField txtPengeluaran;
     private javax.swing.JTextField txtProvinsi;
-    private javax.swing.JTextField txtTanggalLahir;
+    private com.toedter.calendar.JDateChooser txtTanggalLahir;
     private javax.swing.JTextField txtTelpPerusahaan;
     private javax.swing.JTextField txtTempatLahir;
     private javax.swing.JTextField txtUmurAnak;
