@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporan_data_produk" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c2b20da8-61ff-405d-893c-12412c2095dd">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="Parameter1" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from produk]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="280" y="0" width="280" height="40" uuid="f8fd739d-71a8-49f6-be32-deb6c331b7d5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="280" y="0" width="280" height="42" uuid="198a740d-2992-4a61-b727-dbbce3d0c0b3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN DATA PRODUK]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="37" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="7" width="30" height="30" uuid="8bcf1925-1509-46b0-bc8b-2f532f245e7f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="30" y="7" width="80" height="30" uuid="4638f3b2-ebda-4820-b06a-5de256637e29"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="110" y="7" width="80" height="30" uuid="ef729cce-2e87-4288-8663-d7e669f913bb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="280" y="7" width="80" height="30" uuid="489af21a-4d24-40b1-89a6-22e9c8415aea"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="480" y="7" width="80" height="30" uuid="2e818238-d13c-4806-9c6e-a1f2c2349438"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="190" y="7" width="90" height="30" uuid="1f2ef6fc-eb85-49ae-8eee-23f76aae530a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="360" y="7" width="120" height="30" uuid="570e65b5-b971-4a5e-842e-f2d4f3c79f58"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="7" width="30" height="30" uuid="6991ea43-8680-49e9-ae01-267ac63b367f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="7" width="80" height="30" uuid="af58be2d-79b5-4192-b2c6-363247f2434a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KODE PRODUK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="10" width="80" height="25" uuid="10142767-5347-4628-90b9-b146f79c3222"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAMA PRODUK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="7" width="90" height="30" uuid="16e83bdb-6bc3-4afa-b0df-d524d370fa8d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KATEGORI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="7" width="80" height="30" uuid="82699c85-6399-4770-800c-55c6f0895dfe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MERK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="8" width="120" height="29" uuid="1f6b93ba-fbe9-42db-bf59-53b736a91226"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESKRIPSI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="7" width="80" height="30" uuid="18852a1c-5024-483f-8556-be738e0c0c38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HARGA]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="30" height="125" uuid="e88286de-f633-4579-b857-dea5666f3270"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="30" y="0" width="80" height="125" uuid="ba9414bc-7bcb-4e06-9ea2-9f3bb00327b7"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="110" y="0" width="80" height="125" uuid="f888db22-d68d-4730-833a-eed25d98286e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="190" y="0" width="90" height="125" uuid="2dfea6c0-e8ca-440b-b95b-d0458896b418"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="280" y="0" width="80" height="125" uuid="aa66fa6c-4d97-4227-b5aa-a2e37f301c00"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="360" y="0" width="120" height="125" uuid="fe3f8094-ad1c-4bd0-bed6-767e44831f09"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="480" y="0" width="80" height="125" uuid="2f0bdd9e-523c-4cfa-9d2c-4d3050105468"/>
+			</rectangle>
+		</band>
+	</detail>
+</jasperReport>

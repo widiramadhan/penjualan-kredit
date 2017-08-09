@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporan_data_transaksi" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a9a2e3e3-c045-4d89-9d22-dd04fd5fa15e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="480" y="0" width="320" height="40" uuid="90c8fd00-6350-4253-b99a-f6d755ce711e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="480" y="-1" width="320" height="42" uuid="4901155a-c2f4-4f03-ab23-b284b138716b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN DATA TRANSAKSI]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-10" y="10" width="30" height="30" uuid="b4248f82-f104-4fff-b015-ef2c26bc302b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="20" y="10" width="100" height="30" uuid="68a419ae-8964-488b-9426-55d6ee8fc055"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="120" y="10" width="80" height="30" uuid="00a96786-b66b-4544-a297-f9def0fc5354"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="270" y="10" width="80" height="30" uuid="13defa1d-1ea8-4bd7-9a58-213e057518f5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="420" y="10" width="80" height="30" uuid="bbbb23ff-b8c0-4582-a632-88fd8571f226"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="200" y="10" width="70" height="30" uuid="de4afed4-67c5-4bc3-825b-376287edef67"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="350" y="10" width="70" height="30" uuid="41ce24f9-5621-4fe0-b97b-eb264e0bb541"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-10" y="10" width="30" height="30" uuid="2463a079-ab18-47ad-a509-bcfd3f736d47"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="10" width="100" height="30" uuid="e9e5ddb9-1049-463e-9e1d-21b0d8a0b445"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NO TRANSAKSI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="13" width="80" height="25" uuid="53aec4b0-c383-417c-b293-3e277fe7cb27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAMA PRODUK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="10" width="70" height="30" uuid="d35692e2-776b-4eb8-bea5-bc8df17f0270"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PENGGUNA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="10" width="80" height="30" uuid="974a636c-796c-455e-931e-dee6630712e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KREDITUR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="11" width="70" height="29" uuid="2624504d-3f2b-4bb4-89c7-f448f178a0cd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KODE PRODUK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="10" width="80" height="30" uuid="cf2f5cc4-4be2-48f8-b4d3-55c3b44a8761"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TANGGAL TRANSAKSI]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="570" y="10" width="40" height="30" uuid="b388f899-4c4c-4fa4-9725-5ac5bbe9167f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="650" y="10" width="80" height="30" uuid="6b1d99bc-fd8b-484a-b941-b8673bb2771b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="500" y="10" width="70" height="30" uuid="a3a45460-dfd4-4cfb-98ff-c26edbda0717"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="610" y="10" width="40" height="30" uuid="0501bf2b-366e-4948-a9a2-d557136e3ce6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="570" y="10" width="40" height="30" uuid="7d39f2bc-a4cc-4183-8490-3e2751a8d000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TENOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="610" y="10" width="40" height="30" uuid="179f6e05-5482-4701-b67a-dc5f5e128319"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BUNGA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="650" y="10" width="80" height="30" uuid="6c9dd76a-9638-46da-a424-243eea423a49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANGSURAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="10" width="70" height="30" uuid="0d2444d4-8ed6-4e9b-9e26-3d0bf49b4501"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HARGA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="730" y="10" width="80" height="30" uuid="85f7c668-e7e8-4b8b-9583-fa2f1fb8b512"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="730" y="10" width="80" height="30" uuid="0ecbd4c2-3ff9-4d17-877f-c26a364bc260"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-10" y="-10" width="30" height="125" uuid="287a4ce1-b816-41d0-8886-9d63271c395b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="20" y="-10" width="100" height="125" uuid="501677d5-d20e-4100-be12-0f03b20ea1d4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="120" y="-10" width="80" height="125" uuid="64c6ea15-f23f-407a-81b8-ac76bcd10830"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="200" y="-10" width="70" height="125" uuid="356e21db-3a66-4305-8ffc-ecefcc620aa2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="270" y="-10" width="80" height="125" uuid="cb4e57ae-93bb-4bd4-b141-782f7b50ed4d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="350" y="-10" width="70" height="125" uuid="5985f860-32fc-429c-a84b-d4a8157d118d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="420" y="-10" width="80" height="125" uuid="287108d9-3140-45b6-bc77-c0b4f9aade3d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="500" y="-10" width="70" height="125" uuid="9d54ae83-c397-416b-8f2e-af1bb26ad506"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="570" y="-10" width="40" height="125" uuid="8c7b094d-cdfc-46d8-a1d7-9af073a63006"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="610" y="-10" width="40" height="125" uuid="0bdecc15-a35d-4bb4-94ce-1016c0cba19c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="650" y="-10" width="80" height="125" uuid="07f6763b-085a-439a-9c38-92f7310f170b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="730" y="-10" width="80" height="125" uuid="441c9cd2-27d0-41a9-984d-3e9b85be58de"/>
+			</rectangle>
+		</band>
+	</detail>
+</jasperReport>
